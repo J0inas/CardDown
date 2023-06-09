@@ -1,3 +1,5 @@
+start_tag = "<!---->"
+
 # dict of tags for the md syntax of the cards
 tags_md = {
     "start"         : "# ",

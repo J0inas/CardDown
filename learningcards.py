@@ -1,7 +1,18 @@
-from tags import tags_md, card_control
+from tags import tags_md, card_control, start_tag
 
-def load_card_file(
-    file_name : str
+def load_multiple_files(
+    file_structure : str,
+    deck_tag : str,
+    ) -> list:
+    """
+    loads all files that have a start tag for the 
+    :deck_tag: tag thats in the file right after the start_tag 
+    """
+    pass
+    
+
+def load_one_file(
+    file_name : str,
     ) -> str:
     """
     searches file, error if not found in directory.

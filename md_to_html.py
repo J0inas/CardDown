@@ -13,7 +13,7 @@ def mdToHtml(
     returns: file with html name
     """
     # load the md file
-    md_str = load_card_file(card_file)
+    md_str = load_one_file(card_file)
     # parse the md text into the cards
     md_cards = parse_md_cards(md_str)
     # parse the md_cards to html-text

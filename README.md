@@ -7,6 +7,11 @@
  ### What is the next goal?
  Adding a first way to create a card to anki from a Markdown-File inside of the directory of this project.
 
+Also reading multiple files into the converter while saving the flashcards to the same Anki-Deck.
+
  ### What is the motivation behind this project?
  I want to use this tool to create flashcards in anki through my notes from Obsidian without the extra effort of typing my own flashcards. 
  Instead the cards should be created through this tool.
+
+### Overview
+ ![Alt text](<Markdown2Anki - Visualized.png>)
