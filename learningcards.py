@@ -8,6 +8,8 @@ def load_multiple_files(
     loads all files that have a start tag for the 
     :deck_tag: tag thats in the file right after the start_tag 
     """
+    # if start_tag is in first line and the deck-tag is correct
+    # then put file in queue for parsing to md_cards
     pass
     
 
