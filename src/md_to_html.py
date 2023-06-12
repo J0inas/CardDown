@@ -25,6 +25,16 @@ def mdToHtml(
     
     return html_file
 
+def card_content_to_html(content : LearningCard) -> str:
+    """
+    Converts markdown content of a card to html.
+    
+    returns: html in String format
+    """
+    html_content = markdown.markdown(content)
+    final_html = replace_tag(html_content, tags_md["strike"], tags_html["strike_begin"], tags_html["strike_end"])
+    return final_html  
+
 def parse_html_cards(
     learningcards : list
     ) -> str:  

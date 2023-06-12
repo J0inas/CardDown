@@ -2,6 +2,7 @@ import random
 import genanki
 from tags import *
 from learningcards import *
+from md_to_html import card_content_to_html
 
 # Generates anki-stacks from md-files
 def md_to_anki(
@@ -28,12 +29,10 @@ def generate_anki_cards(card : LearningCard):
     Generates anki-notes from the given Learningcard.
     """
     model = genanki.BASIC_MODEL
-    
-    
-    
-    fields = [card.get_front_content, card.get_back_content]
-    
-    
+    front = card_content_to_html(card.get_front_content)
+    back = card_content_to_html(card.get_back_content)
+    fields = [front, back]
+
     note = genanki.Note(model,fields)
     
     return note
