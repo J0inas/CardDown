@@ -6,7 +6,7 @@ def mdToHtml(
     card_file: str,
     html_output: str):
     """
-    converts the given md_file to a new html_file with the given output name
+    converts the given md_file to a simple new html_file with the given output name
     - card_file is the filename of Markdown-File with cards
     - html_output is the filename of the HTML page that will be generated
     
@@ -30,7 +30,6 @@ def parse_html_cards(
     ) -> str:  
     """
     parses the learningcards from list into html-string
-    # TODO: implementation without the lib -> more freedom for own implementation
     """
     html = ""
     print (html)
