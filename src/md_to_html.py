@@ -88,7 +88,7 @@ def replace_tag(
 # parse_html_cards(learningcards)
 # LearningCard.print_to_console(learningcards)
 # HTML converter
-mdToHtml("test_card.md", "example.html")
+# mdToHtml("test_card.md", "example.html")
 
 
 

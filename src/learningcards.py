@@ -22,11 +22,22 @@ def load_one_file(
     """
     try:
         f = open(file_name,'r')
-        file_string = f.read()
-        return file_string
+        check = contains_tag(f,start_tag)
+        if (check == False):
+            print ("No flashcards found.")
+            return ""
+        return f.read()
     except FileNotFoundError:
         print("File not found, try again.")
         return ""
+
+def contains_tag(file : object, tag : str) -> bool:
+    """
+    Looks at the first line of the given file and searches for the tag.
+    """
+    if (tag in file.readline()):
+        return True
+    return False
 
 def parse_md_cards(
     file_string : str

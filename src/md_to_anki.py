@@ -16,6 +16,10 @@ def md_to_anki(
     """
     # currently only for one file
     md_cards = load_one_file(file_name)
+    
+    if (md_cards == ""):
+        return
+    
     flashcards = parse_md_cards(md_cards)
     
     anki_deck = genanki.Deck(id_generator(),deck_name)
