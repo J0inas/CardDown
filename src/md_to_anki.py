@@ -20,15 +20,15 @@ def md_to_anki(
     
     if (md_cards == ""):
         return
-    
+
     flashcards = parse_md_cards(md_cards)
-    
+    # generating the anki file
     anki_deck = genanki.Deck(id_generator(),deck_name)
     
     for card in flashcards:
         note = anki_note(card)
         anki_deck.add_note(note)
-    
+        
     card_package = genanki.Package(anki_deck)
 
     card_package.write_to_file(deck_name + '.apkg')

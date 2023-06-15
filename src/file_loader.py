@@ -11,8 +11,21 @@ def load_multiple_files(
     """
     # if start_tag is in first line and the deck-tag is correct
     # then put file in queue for parsing to md_cards
-    pass
     
+    # go to path
+    os.chdir(path)
+    files = os.listdir()
+    card_files = []
+    for x in files:
+        # is flashcard?
+        if (load_one_file == ""):
+            continue
+        # is the right flashcard?
+        if (contains_tag(x,deck_tag) == False):
+            continue
+        card_files.append(x)
+             
+    return card_files
 
 def load_one_file(
     file_name : str,
