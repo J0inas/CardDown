@@ -2,6 +2,7 @@ import random
 import genanki
 from tags import *
 from learningcards import *
+from file_loader import *
 from md_to_html import card_content_to_html
 
 # Generates anki-stacks from md-files
