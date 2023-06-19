@@ -19,28 +19,19 @@ def md_to_anki(
     """
     # directory-converter
     if (os.path.isdir(input) == True):
-        cardlist = load_multiple_files(input, deck_name)
-        print (cardlist)
-        md_cards = []
-        print (cardlist)
-        for card in cardlist:
-            md_cards.append(parse_md_cards(card))
-            print (md_cards)
-            
-        anki_deck = genanki.Deck(id_generator(),deck_name)
-        
-        for card in md_cards:
-            note_list = anki_note_from_list(card)
-            for note in note_list:
-                anki_deck.add_note(note)
-        
-        card_package = genanki.Package(anki_deck)
-        card_package.write_to_file(deck_name + '.apkg')
-        print("Writing file was succesful!")
+        path_to_anki(input, deck_name)
+        print("Writing was succesful.")
         return
-        
+    file_to_anki(input, deck_name)
+    return
+
+def file_to_anki(file_name: str, deck_name: str):
+    """
+    :file_name: str of file that should be converted
+    :deck_name: name of the tag that is given after the start_tag in the file - also the name of the Anki-Deck
+    """
     # file-converter
-    md_cards = load_one_file(input, deck_name)
+    md_cards = load_one_file(file_name, deck_name)
     # empty file has no need to be converted
     if (md_cards == ""):
         return
@@ -50,6 +41,30 @@ def md_to_anki(
     for card in flashcards:
         note = anki_note(card)
         anki_deck.add_note(note)
+    card_package = genanki.Package(anki_deck)
+    card_package.write_to_file(deck_name + '.apkg')
+    print("Writing file was succesful!")
+
+def path_to_anki(path: str, deck_name: str):
+    """
+    :path: str of the path where the md-files are located
+    :deck_name: name of the tag that is given after the start_tag in the file - also the name of the Anki-Deck
+    """
+    cardlist = load_multiple_files(path, deck_name)
+    print (cardlist)
+    md_cards = []
+    print (cardlist)
+    for card in cardlist:
+        md_cards.append(parse_md_cards(card))
+        print (md_cards)
+        
+    anki_deck = genanki.Deck(id_generator(),deck_name)
+    
+    for card in md_cards:
+        note_list = anki_note_from_list(card)
+        for note in note_list:
+            anki_deck.add_note(note)
+    
     card_package = genanki.Package(anki_deck)
     card_package.write_to_file(deck_name + '.apkg')
     print("Writing file was succesful!")
