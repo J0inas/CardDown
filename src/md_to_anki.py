@@ -5,10 +5,10 @@ from learningcards import *
 from file_loader import *
 from md_to_html import card_content_to_html
 
-# Generates anki-stacks from md-files
 def md_to_anki(
     input : str, 
-    deck_name : str,
+    deck_tag : str,
+    deck_name : str
     ):
     """
     Creates an anki-deck from the given md-file.
@@ -19,19 +19,20 @@ def md_to_anki(
     """
     # directory-converter
     if (os.path.isdir(input) == True):
-        path_to_anki(input, deck_name)
-        print("Writing was succesful.")
+        path_to_anki(input, deck_tag, deck_name)
         return
-    file_to_anki(input, deck_name)
+    # single-file-converter
+    file_to_anki(input, deck_tag, deck_name)
     return
 
-def file_to_anki(file_name: str, deck_name: str):
+def file_to_anki(file_name: str, deck_tag: str, deck_name: str):
     """
     :file_name: str of file that should be converted
-    :deck_name: name of the tag that is given after the start_tag in the file - also the name of the Anki-Deck
+    :deck_tag: name of the tag that is given after the start_tag in the file
+    :deck_name: name of the Anki-Deck
     """
     # file-converter
-    md_cards = load_one_file(file_name, deck_name)
+    md_cards = load_one_file(file_name, deck_tag)
     # empty file has no need to be converted
     if (md_cards == ""):
         return
@@ -45,12 +46,13 @@ def file_to_anki(file_name: str, deck_name: str):
     card_package.write_to_file(deck_name + '.apkg')
     print("Writing file was succesful!")
 
-def path_to_anki(path: str, deck_name: str):
+def path_to_anki(path: str, deck_tag: str, deck_name: str):
     """
     :path: str of the path where the md-files are located
-    :deck_name: name of the tag that is given after the start_tag in the file - also the name of the Anki-Deck
+    :deck_tag: name of the tag that is given after the start_tag in the file
+    :deck_name: name of the Anki-Deck    
     """
-    cardlist = load_multiple_files(path, deck_name)
+    cardlist = load_multiple_files(path, deck_tag)
     print (cardlist)
     md_cards = []
     print (cardlist)
@@ -72,7 +74,7 @@ def path_to_anki(path: str, deck_name: str):
 def anki_note(card : LearningCard):
     """
     Generates anki-notes from the given Learningcard.
-    
+    :card: A converted MarkDown-Card
     returns: single anki-flashcard
     """
     model = genanki.BASIC_MODEL
@@ -87,7 +89,7 @@ def anki_note(card : LearningCard):
 def anki_note_from_list(card_list : list):
     """
     Generates anki-notes from the given Learningcard.
-    
+    :card_list: List of LearningCards
     returns: single anki-flashcard
     """
     note_list = []
@@ -110,4 +112,4 @@ def id_generator():
     return random.randrange(1 << 30, 1 << 31)
 
 # test
-md_to_anki("/Users/joinas/Documents/Uni/Software-Engineering/Markdown-Anki/Markdown-LearningCards", "#test")
+md_to_anki("/Users/joinas/Documents/Obsidian/Life","#fileTest","Test")
