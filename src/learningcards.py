@@ -16,7 +16,7 @@ def parse_md_cards(
             continue;
         
         # start tag of the card
-        if (line[0:len(tags_md.get('start'))] == (tags_md.get('start'))):
+        if (line[0:len(tags_md.get('start'))] == (tags_md.get('start')) or line[0:len(tags_md.get('section'))] == (tags_md.get('section')) ):
             card_control["simple"] = False
             card_control["question"] = False
         
