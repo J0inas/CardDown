@@ -55,12 +55,15 @@ def path_to_anki(path: str, deck_tag: str, deck_name: str):
     print(cardlist)
     md_cards = []
     print(cardlist)
+    media_list = []
     for card in cardlist:
         md_cards.append(parse_md_cards(card))
         print(md_cards)
 
     anki_deck = genanki.Deck(id_generator(), deck_name)
 
+    anki_deck = genanki.Deck(id_generator(),deck_name)
+    
     for card in md_cards:
         note_list = anki_note_from_list(card)
         for note in note_list:
@@ -105,6 +108,19 @@ def anki_note_from_list(card_list: list):
     return note_list
 
 
+def get_media(card : LearningCard):
+    """
+    Returns every media file in a LearningCard.
+
+    :card: LearningCard
+    """
+    content = card.get_back_content()
+    
+    # two choices here buddy:
+    # first - just spit every single fucking file you can find there, won't be pretty
+    # second - filter through the flashcards or even the md and replace the str with the media
+    pass
+
 def id_generator():
     """
     Creates a random id for the model- and deck-identification.
@@ -116,3 +132,5 @@ def id_generator():
 
 # test
 md_to_anki("/Users/joinas/Documents/Obsidian/Life", "#fileTest", "Test")
+
+md_to_anki("/Users/joinas/Documents/Obsidian/Life","#AlgoGeoTest","Mediatest")
