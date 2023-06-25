@@ -1,9 +1,7 @@
 import os
-import io
 from typing import Tuple
 from typing import TextIO
 from utility import text_file_peek_line
-import learningcards
 
 tags_dict = {
     'startTag': '{card}',
@@ -30,9 +28,6 @@ def get_cards(file_path: str) -> list:
             if next_card is not None:
                 # add card to the list
                 cardlist.append(next_card)
-
-        for card in cardlist:
-            print('\n'.join(card))
     else:
         print('File could not be found:' + file_path)
 
