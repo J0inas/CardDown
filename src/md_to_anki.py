@@ -55,7 +55,7 @@ def path_to_anki(path: str, deck_tag: str, deck_name: str):
     print(cardlist)
     md_cards = []
     print(cardlist)
-    media_list = []
+    media_list = get_media_from_path(path)
     for card in cardlist:
         md_cards.append(parse_md_cards(card))
         print(md_cards)
@@ -70,6 +70,7 @@ def path_to_anki(path: str, deck_tag: str, deck_name: str):
             anki_deck.add_note(note)
 
     card_package = genanki.Package(anki_deck)
+    card_package.media_files = media_list
     card_package.write_to_file(deck_name + ".apkg")
     print("Writing file was succesful!")
 
@@ -135,6 +136,6 @@ def id_generator():
 
 
 # test
-md_to_anki("/Users/joinas/Documents/Obsidian/Life", "#fileTest", "Test")
+md_to_anki("/Users/joinas/Documents/Uni/Software-Engineering/Markdown-Anki/Markdown-LearningCards", "#fileTest", "Test")
 
-md_to_anki("/Users/joinas/Documents/Obsidian/Life","#AlgoGeoTest","Mediatest")
+# md_to_anki("/Users/joinas/Documents/Obsidian/Life","#AlgoGeoTest","Mediatest")

@@ -1,57 +1,17 @@
 <!----> 
-#test
+#fileTest
 
-# What is a test?
-~~this is a test~~
-*does it test tho?*
-**yes it does!**
-  
+> Test the current syntax and the media integration.
 
-# {QUESTION}
-## Welche Vögel legen niemals Eier? {FRONT}
+# What is a md-file?
+A very good file to write and explore thoughts.
 
-## {BACK}
-*Antwort:*
-männliche
-```Vögel```
+# What is the answer to all there is?
+42
 
-  
+# How is this project structured?
+![](<Markdown2Anki - Visualized.png>)
+^ this syntax is working
 
-# What is "yay" backwards?
-
-- yay
-
-but also
-
-- yay
-
-:)
-
-  
-
-# {QUESTION}
-
-## Wie kann ich die Prüfung bestehen? {FRONT}
-
-## {BACK}
-
-- Prüfungszulassung erlangen
-
-- %-Satz an Punkten erlangen
-
-- 3 Mal vortragen
-
-- die Konzepte aus den Vorlesungen verstehen
-
-- genug Selbstvertrauen in die eigenen Fähigkeiten haben
-
-- Profit
-
-  
-
-# Was ist die die Antwort auf alles?
-## 42
-### 42
-#### 42
-##### 42
-###### 42
+![[Markdown2Anki - Visualized.png]]
+^ this syntax is under construction
