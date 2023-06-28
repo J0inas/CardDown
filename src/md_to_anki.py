@@ -108,18 +108,22 @@ def anki_note_from_list(card_list: list):
     return note_list
 
 
-def get_media(card : LearningCard):
+def get_media_from_path(path : str)-> list:
     """
-    Returns every media file in a LearningCard.
-
-    :card: LearningCard
+    Returns every media file from the path as a list.
+    Media is a png, jpeg, mp3, gif or mp4.
     """
-    content = card.get_back_content()
-    
-    # two choices here buddy:
-    # first - just spit every single fucking file you can find there, won't be pretty
-    # second - filter through the flashcards or even the md and replace the str with the media
-    pass
+    os.chdir(path)
+    files = os.listdir()
+    media_files = []
+    for x in files:
+        if x[-4:] == ".png" or  x[-4:] == ".mp3" or  x[-4:] == ".gif" or  x[-4:] == ".mp4":
+            media_files.append(x)
+        elif x[-5:] == ".jpeg":
+            media_files.append(x)
+        else:
+            continue
+    return media_files
 
 def id_generator():
     """

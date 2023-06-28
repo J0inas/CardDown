@@ -79,7 +79,7 @@ def get_next_card(file: TextIO) -> list:
 
 def get_next_Tag(file: TextIO, searchTag: str) -> Tuple[str, str]:
     """
-    allows the passing of just a string wich will 
+    allows the passing of just a string which will 
     then be put in list, so it can be passed to get_next_Tags
     """
     tag_as_list = [searchTag]
