@@ -113,7 +113,7 @@ def get_media_from_path(path : str)-> list:
     Returns every media file from the path as a list.
     Media is a png, jpeg, mp3, gif or mp4.
     """
-    os.chdir(path)
+    os.chdir(path) 
     files = os.listdir()
     media_files = []
     for x in files:
