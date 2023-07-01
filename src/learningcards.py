@@ -1,5 +1,5 @@
 from tags import tags_md, card_control
-from file_loader import *
+from file_loader import start_tag
 
 
 def parse_md_cards(file_string: str) -> list:
@@ -18,9 +18,8 @@ def parse_md_cards(file_string: str) -> list:
             continue
 
         # start tag of the card
-        if line[0: len(tags_md.get("start"))] == (tags_md.get("start")) or line[
-            0: len(tags_md.get("section"))
-        ] == (tags_md.get("section")):
+        if line.startswith(tags_md.get("start")) or line.startswith(tags_md.get("section")):
+
             card_control["simple"] = False
             card_control["question"] = False
 
@@ -43,12 +42,12 @@ def parse_md_cards(file_string: str) -> list:
                 learningcard_list.append(new_simplecard)
 
         # content of simplecard
-        elif card_control["simple"] == True:
+        elif card_control["simple"] is True:
             learningcard_list[len(learningcard_list) -
                               1].set_back_content(line)
 
         # content of questioncard
-        elif card_control["question"] == True:
+        elif card_control["question"] is True:
             # if section-tag is detected
             if line[0: len(tags_md.get("section"))] == (tags_md.get("section")):
                 card_control["back"] = False
@@ -110,7 +109,7 @@ class SimpleCard(LearningCard):
         self.front = line
 
     def set_back_content(self, line):
-        if self.back == None:
+        if self.back is None:
             self.back = line
         # lines get concatenated
         else:
