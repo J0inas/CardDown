@@ -13,6 +13,9 @@ def parse_md_cards(file_string: str) -> list:
         # empty line skipped
         if line == "":
             continue
+        
+        if line == start_tag:
+            continue
 
         # start tag of the card
         if line[0 : len(tags_md.get("start"))] == (tags_md.get("start")) or line[
@@ -41,7 +44,7 @@ def parse_md_cards(file_string: str) -> list:
 
         # content of simplecard
         elif card_control["simple"] == True:
-            learningcard_list[len(learningcard_list) - 1].set_back_content(line)
+            learningcard_list[len(learningcard_list)-1].set_back_content(line)
 
         # content of questioncard
         elif card_control["question"] == True:

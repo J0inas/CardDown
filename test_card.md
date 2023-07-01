@@ -1,5 +1,4 @@
 <!----> 
-#fileTest
 
 > Test the current syntax and the media integration.
 
@@ -15,3 +14,7 @@ A very good file to write and explore thoughts.
 
 ![[Markdown2Anki - Visualized.png]]
 ^ this syntax is under construction
+
+
+---
+#fileTest
