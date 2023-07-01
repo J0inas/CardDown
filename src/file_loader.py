@@ -1,6 +1,7 @@
 import os
 from tags import start_tag
 
+
 def load_multiple_files(path: str, deck_tag: str) -> list:
     """
     loads all files that have a start tag and are for the given deck.
@@ -34,10 +35,10 @@ def load_one_file(file_name: str, deck_tag: str) -> str:
         f = open(file_name, "r")
         try:
             f.readline()[-1]
-        except IndexError: 
+            f.seek(0)
+        except IndexError:
             print("File not working with tags.")
             return ""
-        f.seek(0)
         check_flash = contains_tag(f, start_tag)
         check_deck = contains_tag(f, deck_tag)
         if check_flash is False:
@@ -46,7 +47,6 @@ def load_one_file(file_name: str, deck_tag: str) -> str:
         if check_deck is False:
             print("No belonging deck in file.")
             return ""
-        f.seek(0)
         return f.read()
     except FileNotFoundError:
         print("File not found, try again.")
@@ -57,15 +57,20 @@ def contains_tag(file: object, tag: str) -> bool:
     """
     Looks at the first line of the given file and searches for the tag.
     """
+
+    foundTag = False
+    prevPosition = file.tell()
     file.seek(0)
-    
+
     if tag in file.readline():
-        return True
-    
+        foundTag = True
+
     if tag in file.readlines()[-1]:
-        return True
-    
-    return False
+        foundTag = True
+
+    # reset position in the file handle
+    file.seek(prevPosition)
+    return foundTag
 
 
 # str-version of tag-checker
@@ -73,8 +78,14 @@ def contains_tag_str(file: str, tag: str) -> bool:
     """
     Looks at the first line of the given file and searches for the tag.
     """
-    
+
+    foundTag = False
+    prevPosition = file.tell()
+    file.seek(0)
+
     if tag in file.partition("\n")[-1]:
-        return True
-    
-    return False
+        foundTag = True
+    # reset file handle position
+    file.seek(prevPosition)
+
+    return foundTag

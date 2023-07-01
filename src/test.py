@@ -8,4 +8,4 @@ else:
     cards = get_cards(str(input()))
 
 for card in cards:
-    print('\n'.join(card))
+    print("\n".join(card))

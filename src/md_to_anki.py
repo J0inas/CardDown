@@ -62,8 +62,8 @@ def path_to_anki(path: str, deck_tag: str, deck_name: str):
 
     anki_deck = genanki.Deck(id_generator(), deck_name)
 
-    anki_deck = genanki.Deck(id_generator(),deck_name)
-    
+    anki_deck = genanki.Deck(id_generator(), deck_name)
+
     for card in md_cards:
         note_list = anki_note_from_list(card)
         for note in note_list:
@@ -109,22 +109,23 @@ def anki_note_from_list(card_list: list):
     return note_list
 
 
-def get_media_from_path(path : str)-> list:
+def get_media_from_path(path: str) -> list:
     """
     Returns every media file from the path as a list.
     Media is a png, jpeg, mp3, gif or mp4.
     """
-    os.chdir(path) 
+    os.chdir(path)
     files = os.listdir()
     media_files = []
     for x in files:
-        if x[-4:] == ".png" or  x[-4:] == ".mp3" or  x[-4:] == ".gif" or  x[-4:] == ".mp4":
+        if x[-4:] == ".png" or x[-4:] == ".mp3" or x[-4:] == ".gif" or x[-4:] == ".mp4":
             media_files.append(x)
         elif x[-5:] == ".jpeg":
             media_files.append(x)
         else:
             continue
     return media_files
+
 
 def id_generator():
     """
@@ -138,4 +139,7 @@ def id_generator():
 # test
 # md_to_anki("/Users/joinas/Documents/Uni/Software-Engineering/Markdown-Anki/Markdown-LearningCards", "#fileTest", "TagTest")
 
-md_to_anki("/Users/joinas/Documents/Obsidian/Life","#AlgoGeo","AlgoGeoTest")
+# md_to_anki("/Users/joinas/Documents/Obsidian/Life","#AlgoGeo","AlgoGeoTest")
+
+
+md_to_anki("./testDir/", "#Mango", "MangoTest")
