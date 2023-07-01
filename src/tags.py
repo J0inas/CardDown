@@ -2,8 +2,8 @@ start_tag = "<!---->"
 
 # dict of tags for the md syntax of the cards
 tags_md = {
-    "start": "# ",
-    "section": "## ",
+    "card_begin": "# ",
+    "card_section": "## ",
     "question_card": "{QUESTION}",
     "front": "{FRONT}",
     "back": "{BACK}",
