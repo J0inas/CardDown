@@ -18,13 +18,14 @@ def parse_md_cards(file_string: str) -> list:
             continue
 
         # start tag of the card
-        if line.startswith(tags_md["card_begin"]) or line.startswith(tags_md["card_section"]):
+        if line.startswith(tags_md["card_begin"]):
 
             card_control["simple"] = False
             card_control["question"] = False
 
             # new questioncard
             # checking last letters for the given question_card-tag
+
             if line.endswith(tags_md["question_card"]):
                 # for card content
                 card_control["question"] = True
@@ -39,32 +40,28 @@ def parse_md_cards(file_string: str) -> list:
                 new_simplecard.set_front_content(line)
                 learningcard_list.append(new_simplecard)
 
-        # content of simplecard
-        elif card_control["simple"] is True:
+        elif line.startswith(tags_md["card_section"]):
+            # content of questioncard
+            if card_control["question"] is True:
+                # if section-tag is detected
+                if line.startswith(tags_md["card_section"]):
+                    card_control["back"] = False
+
+                    # if front-tag detected
+                    if line.endswith(tags_md["front"]):
+                        # function slices the string so that the front tag is removed
+                        learningcard_list[len(learningcard_list) - 1].set_front_content(
+                            line
+                        )
+
+                    # back
+                    elif line.endswith(tags_md["back"]):
+
+                        card_control["back"] = True
+
+        elif card_control["back"] or card_control["simple"]:
             learningcard_list[len(learningcard_list) -
                               1].set_back_content(line)
-
-        # content of questioncard
-        elif card_control["question"] is True:
-            # if section-tag is detected
-            if line.startswith(tags_md["card_section"]):
-                card_control["back"] = False
-
-                # if front-tag detected
-                if line.endswith(tags_md["front"]):
-                    # function slices the string so that the front tag is removed
-                    learningcard_list[len(learningcard_list) - 1].set_front_content(
-                        line
-                    )
-
-                # back
-                elif line.endswith(tags_md["back"]):
-
-                    card_control["back"] = True
-
-            elif card_control["back"] is True:
-                learningcard_list[len(learningcard_list) -
-                                  1].set_back_content(line)
 
     return learningcard_list
 

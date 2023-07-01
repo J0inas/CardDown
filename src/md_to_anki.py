@@ -1,9 +1,12 @@
-import random
-import genanki
-from tags import *
-from learningcards import *
-from file_loader import *
 from md_to_html import card_content_to_html
+from file_loader import *
+from learningcards import *
+from tags import *
+import os
+import genanki
+import random
+from pudb import set_trace
+# set_trace()
 
 
 def md_to_anki(input: str, deck_tag: str, deck_name: str):
@@ -52,6 +55,7 @@ def path_to_anki(path: str, deck_tag: str, deck_name: str):
     :deck_name: name of the Anki-Deck
     """
     cardlist = load_multiple_files(path, deck_tag)
+
     print(cardlist)
     md_cards = []
     print(cardlist)
@@ -81,6 +85,7 @@ def anki_note(card: LearningCard):
     :card: A converted MarkDown-Card
     returns: single anki-flashcard
     """
+    print(card.get_front_content())
     model = genanki.BASIC_MODEL
     front = card_content_to_html(card.get_front_content())
     back = card_content_to_html(card.get_back_content())
@@ -142,4 +147,5 @@ def id_generator():
 # md_to_anki("/Users/joinas/Documents/Obsidian/Life","#AlgoGeo","AlgoGeoTest")
 
 
-md_to_anki("./testDir/", "#Mango", "MangoTest")
+# md_to_anki("./testDir/", "#Mango", "MangoTest")
+md_to_anki("./basicCardTest.md", "#Mango", "MangoTest")
