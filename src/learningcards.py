@@ -10,13 +10,16 @@ def parse_md_cards(file_string: str) -> list:
 
     # traversing through file, line by line
     for line in file_string.splitlines():
+        print (line)
         # empty line skipped
-        if line == "":
-            continue
         
         if line == start_tag:
             continue
-
+        
+        if tags_md.get("seperator") in line:
+            card_control["simple"] = False
+            card_control["question"] = False
+        
         # start tag of the card
         if line[0 : len(tags_md.get("start"))] == (tags_md.get("start")) or line[
             0 : len(tags_md.get("section"))

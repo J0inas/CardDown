@@ -4,6 +4,7 @@ start_tag = "<!---->"
 tags_md = {
     "start"         : "# ",
     "section"       : "## ",
+    "seperator"     : "---",
     "question_card" : "{QUESTION}",
     "front"         : "{FRONT}",
     "back"          : "{BACK}",

@@ -14,6 +14,7 @@ def load_multiple_files(path: str, deck_tag: str) -> list:
     card_files = []
     for x in files:
         if x[-3:] == ".md":
+            print (x)
             md = load_one_file(x, deck_tag)
             print(md)
             # is flashcard?
@@ -32,11 +33,6 @@ def load_one_file(file_name: str, deck_tag: str) -> str:
     """
     try:
         f = open(file_name, "r")
-        try:
-            f.readline()[-1]
-        except IndexError: 
-            print("File not working with tags.")
-            return ""
         f.seek(0)
         check_flash = contains_tag(f, start_tag)
         check_deck = contains_tag(f, deck_tag)
@@ -62,18 +58,17 @@ def contains_tag(file: object, tag: str) -> bool:
     if tag in file.readline():
         return True
     
-    if tag in file.readlines()[-1]:
-        return True
+    for x in file.readlines():
+        if tag in x:
+            return True
     
     return False
-
 
 # str-version of tag-checker
 def contains_tag_str(file: str, tag: str) -> bool:
     """
     Looks at the first line of the given file and searches for the tag.
-    """
-    
+    """   
     if tag in file.partition("\n")[-1]:
         return True
     
