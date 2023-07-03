@@ -31,9 +31,19 @@ def card_content_to_html(content: LearningCard) -> str:
 
     returns: html in String format
     """
-    html_content = markdown.markdown(content)
+    replaced_content = replace_tag(
+        content,
+        tags_md["obsidian_img_begin"],
+        tags_md["obsidian_img_end"],
+        tags_md["img_begin"],
+        tags_md["img_end"],
+    )
+    
+    html_content = markdown.markdown(replaced_content)
+    
     final_html = replace_tag(
         html_content,
+        tags_md["strike"],
         tags_md["strike"],
         tags_html["strike_begin"],
         tags_html["strike_end"],
@@ -60,17 +70,17 @@ def parse_html_cards(learningcards: list) -> str:
 
         # exception: strike-case
         html = replace_tag(
-            html, tags_md["strike"], tags_html["strike_begin"], tags_html["strike_end"]
+            html, tags_md["strike"], tags_md["strike"], tags_html["strike_begin"], tags_html["strike_end"]
         )
 
     return html
 
 
 def replace_tag(
-    string: str, md_tag: dict, tag_replacement_begin: dict, tag_replacement_end: dict
+    string: str, md_tag_begin: str, md_tag_end: str, tag_replacement_begin: str, tag_replacement_end: str
 ) -> str:
     # prints -1 if tag not found
-    find = string.find(md_tag)
+    find = string.find(md_tag_begin)
     i = 1
     while find != -1:
         replace_tag = tag_replacement_begin
@@ -79,10 +89,10 @@ def replace_tag(
             replace_tag = tag_replacement_end
             i = 0
         if find != -1:
-            string = string[:find] + replace_tag + " " + string[find + len(md_tag) :]
+            string = string[:find] + replace_tag + " " + string[find + len(md_tag_end) :]
             i += 1
             # breakpoint()
-        find = string.find(md_tag)
+        find = string.find(md_tag_end)
     return string
 
 

@@ -4,6 +4,10 @@
 
 sdk",kk"li,"kk,,,"kk,",lad
 
+---
+
+Das sollte nicht auf der Karte sein
+
 ## Worauf kann man Inkrementelle Konstruktion anwenden?
 
 ## Welches Problem gibt es bei diesem Paradigma?
@@ -13,4 +17,4 @@ sdk",kk"li,"kk,,,"kk,",lad
 [[Randomization]] - [[Randomized Incremental Construction]]
 
 ---
-#AlgoGeo 
+#Test

@@ -10,11 +10,18 @@ A very good file to write and explore thoughts.
 
 # How is this project structured?
 ![](<Markdown2Anki - Visualized.png>)
-^ this syntax is working
+
 
 ![[Markdown2Anki - Visualized.png]]
+
 ^ this syntax is under construction
+
+---
+außerhalb der Karte ist es auch schön!
+
+# Geht [[es]]?
+ya
 
 
 ---
-#fileTest
+#Test
