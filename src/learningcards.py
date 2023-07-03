@@ -10,8 +10,6 @@ def parse_md_cards(file_string: str) -> list:
 
     # traversing through file, line by line
     for line in file_string.splitlines():
-        print (line)
-        # empty line skipped
         
         if line == start_tag:
             continue

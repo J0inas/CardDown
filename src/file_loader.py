@@ -63,13 +63,3 @@ def contains_tag(file: object, tag: str) -> bool:
             return True
     
     return False
-
-# str-version of tag-checker
-def contains_tag_str(file: str, tag: str) -> bool:
-    """
-    Looks at the first line of the given file and searches for the tag.
-    """   
-    if tag in file.partition("\n")[-1]:
-        return True
-    
-    return False
