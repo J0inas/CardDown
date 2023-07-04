@@ -5,8 +5,6 @@ from tags import *
 import os
 import genanki
 import random
-from pudb import set_trace
-# set_trace()
 
 
 def md_to_anki(input: str, deck_tag: str, deck_name: str):
