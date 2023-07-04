@@ -140,6 +140,7 @@ def id_generator():
 
 
 # test
+#md_to_anki("/Users/joinas/Documents/Uni/Software-Engineering/Markdown-Anki/Markdown-LearningCards", "#Test", "Test")
 
 <<<<<<< Updated upstream
 # md_to_anki("/Users/joinas/Documents/Obsidian/Life","#AlgoGeo","AlgoGeoTest")
