@@ -1,8 +1,11 @@
 import os
+from typing import TextIO
 from tags import start_tag
 
+# Todo to stop reading the entire file at once, and return a list of filepaths? to parse
 
-def load_multiple_files(path: str, deck_tag: str) -> list:
+
+def get_valid_cardfiles_from_dir(path: str, deck_tag: str) -> list:
     """
     loads all files that have a start tag and are for the given deck.
     :path: directory of the flashcards
@@ -12,60 +15,63 @@ def load_multiple_files(path: str, deck_tag: str) -> list:
     # go to path
     os.chdir(path)
     files = os.listdir()
-    card_files = []
-    for x in files:
-        if x.endswith(".md"):
-            print(x)
-            md = load_one_file(x, deck_tag)
-            print(md)
-            # is flashcard?
-            if md == "":
-                continue
-            card_files.append(md)
+    card_filenames = [str]
+    for filename in files:
+        if filename.endswith(".md"):
+            print(filename)
+            if is_valid_cardfile(filename, [start_tag, deck_tag]):
+                card_filenames.append(filename)
+
         else:
             continue
-    return card_files
+    return card_filenames
 
 
-def load_one_file(file_name: str, deck_tag: str) -> str:
+def is_valid_cardfile(file_name: str, deck_tag: str) -> str:
     """
     searches file, error if not found in directory.
     returns: the file in str format
     """
+    if deck_tag == "":
+        return file_name
+
     try:
         f = open(file_name, "r")
         f.seek(0)
 
-        check_flash = contains_tag(f, start_tag)
-        check_deck = contains_tag(f, deck_tag)
-        if check_flash is False:
-            print("No flashcards found in file.")
+        check_tags = contains_cardTags(f, [start_tag, deck_tag])
+
+        if check_tags is False:
+            f.close()
             return ""
-        if check_deck is False:
-            print("No belonging deck in file.")
-            return ""
-        return f.read()
+
+        f.close()
+        return file_name
     except FileNotFoundError:
         print("File not found, try again.")
         return ""
 
 
-def contains_tag(file: object, tag: str) -> bool:
+def contains_cardTags(file: TextIO, tags: list[str]) -> bool:
     """
     Looks at the first line of the given file and searches for the tag.
     """
-
-    foundTag = False
+    foundDeckTag = False
+    foundCardTag = False
     prevPosition = file.tell()
     file.seek(0)
 
-    if tag in file.readline():
-
-        for x in file.readlines():
-            if tag in x:
-                foundTag = True
-                break
+    for line in file:
+        for tag in tags:
+            if tag in line:
+                if tag == tags[0]:
+                    foundCardTag = True
+                else:
+                    foundDeckTag = True
+                if foundCardTag and foundDeckTag:
+                    break
 
     # reset position in the file handle
     file.seek(prevPosition)
-    return foundTag
+    # TODO print whats missing
+    return foundDeckTag and foundCardTag

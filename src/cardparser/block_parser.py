@@ -2,8 +2,7 @@ import os
 from typing import Tuple
 from typing import TextIO
 from utility import text_file_peek_line
-from learningcards import LearningCard, SimpleCard, QuestionCard
-
+from learningcards import LearningCard, SimpleCard
 
 block_tag_dict = {"startTag": "{card}", "sepTag": "----"}
 
@@ -24,7 +23,7 @@ def get_cards_from_file(file_path: str) -> list:
         while text_file_peek_line(f) != "":
             # get a card from the current file position
             next_card = __get_next_card(f)
-            if next_card.is_valid():
+            if next_card is not None and next_card.is_valid():
                 # add card to the list
                 cardlist.append(next_card)
     else:
@@ -46,16 +45,14 @@ def __get_next_card(file: TextIO) -> LearningCard:
     # attempt to find card separator
     tag, content = __get_next_Tags(file, valid_tag_list)
 
-    print("Content:" + content)
-
-    print("Tag:" + str(tag))
+    # print("Tag:" + str(tag))
 
     if tag == block_tag_dict["sepTag"]:
         card.set_front_content(content)
     else:
         # card is not valid
-        print(str(card) + content +
-              "is not a valid card. Missing card separator!")
+        # print(str(card) + content +
+        #      "is not a valid card. Missing card separator!")
         # reset progress after tag was not correctly found
         __reset_position_by_tag(tag, file)
         return None
@@ -69,7 +66,7 @@ def __get_next_card(file: TextIO) -> LearningCard:
 
     else:
         # card is not valid
-        print(str(card) + "is not a valid card. Missing correct card ending!")
+        # print(str(card) + "is not a valid card. Missing correct card ending!")
         # reset progress after tag was not correctly found
         __reset_position_by_tag(tag, file)
         return None
@@ -96,10 +93,10 @@ def __get_next_Tags(file: TextIO, validTags: list) -> Tuple[str, str]:
     # read till EOF
     while not currline == "":
         currline = text_file_peek_line(file)
-        print(validTags)
-        print(currline)
+        # print(validTags)
+        # print(currline)
         for tag in validTags:
-            print("CurrTag:" + str(tag))
+            # print("CurrTag:" + str(tag))
             if currline.startswith(tag):
                 found_tag = tag
                 break

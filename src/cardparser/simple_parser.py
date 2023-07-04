@@ -3,15 +3,17 @@ from file_loader import start_tag
 from learningcards import SimpleCard, QuestionCard
 
 
-def get_cards_from_file(file_string: str) -> list:
+def get_cards_from_file(filepath: str) -> list:
     """
     Parser for the simple Markdown-Heading Card Syntax
     returns: List of different LearningCards
     """
     learningcard_list = []
 
+    file = open(filepath, "r")
+
     # traversing through file, line by line
-    for line in file_string.splitlines():
+    for line in file:
         # empty line skipped
         if line == "":
             continue
@@ -56,7 +58,7 @@ def get_cards_from_file(file_string: str) -> list:
                     # if front-tag detected
                     if line.endswith(tags_md["front"]):
                         # function slices the string so that the front tag is removed
-                        learningcard_list[len(learningcard_list) - 1].set_front_content(
+                        learningcard_list[-1].set_front_content(
                             line
                         )
 
@@ -66,7 +68,7 @@ def get_cards_from_file(file_string: str) -> list:
                         card_control["back"] = True
 
         elif card_control["back"] or card_control["simple"]:
-            learningcard_list[len(learningcard_list) -
-                              1].set_back_content(line)
+            learningcard_list[-1].set_back_content(line)
 
+    file.close()
     return learningcard_list

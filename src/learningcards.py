@@ -4,7 +4,7 @@ class LearningCard:
         self.back = None
 
     def __str__(self):
-        return str(self.front) + str(self.back)
+        return "=== ===\n" + str(self.front) + "----\n" + str(self.back)
 
     def set_front_content():
         pass

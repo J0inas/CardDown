@@ -1,19 +1,18 @@
 from md_to_html import card_content_to_html
-from file_loader import *
-from learningcards import *
-from tags import *
+from file_loader import is_valid_cardfile, check_dir_files_valitidy
+from cardparser import simple_parser
+from learningcards import LearningCard
 import os
 import genanki
 import random
-from pudb import set_trace
-# set_trace()
 
 
 def md_to_anki(input: str, deck_tag: str, deck_name: str):
     """
     Creates an anki-deck from the given md-file.
     :input: single file or path
-    :deck_name: name of the tag that is given after the start_tag in the file - also the name of the Anki-Deck
+    :deck_name: name of the tag that is given after the start_tag in the file 
+    - also the name of the Anki-Deck
 
     returns: message that anki-deck was created
     """
@@ -32,12 +31,13 @@ def file_to_anki(file_name: str, deck_tag: str, deck_name: str):
     :deck_tag: name of the tag that is given after the start_tag in the file
     :deck_name: name of the Anki-Deck
     """
-    # file-converter
-    md_cards = load_one_file(file_name, deck_tag)
-    # empty file has no need to be converted
-    if md_cards == "":
+    # check file for valid card file
+    card_filename = is_valid_cardfile(file_name, deck_tag)
+
+    # empty/unvalid file has no need to be converted
+    if card_filename is None:
         return
-    flashcards = parse_md_cards(md_cards)
+    flashcards = simple_parser.get_cards_from_file(card_filename)
     # generating the anki file
     anki_deck = genanki.Deck(id_generator(), deck_name)
     for card in flashcards:
@@ -45,7 +45,7 @@ def file_to_anki(file_name: str, deck_tag: str, deck_name: str):
         anki_deck.add_note(note)
     card_package = genanki.Package(anki_deck)
     card_package.write_to_file(deck_name + ".apkg")
-    print("Writing file was succesful!")
+    print("Writing file was successful!")
 
 
 def path_to_anki(path: str, deck_tag: str, deck_name: str):
@@ -54,29 +54,28 @@ def path_to_anki(path: str, deck_tag: str, deck_name: str):
     :deck_tag: name of the tag that is given after the start_tag in the file
     :deck_name: name of the Anki-Deck
     """
-    cardlist = load_multiple_files(path, deck_tag)
+    filenames = check_dir_files_valitidy(path, deck_tag)
 
-    print(cardlist)
-    md_cards = []
-    print(cardlist)
+    learningcards = []
+    print(filenames)
     media_list = get_media_from_path(path)
-    for card in cardlist:
-        md_cards.append(parse_md_cards(card))
-        print(md_cards)
+    for card in filenames:
+        learningcards.append(simple_parser.get_cards_from_file(card))
+        print(learningcards)
 
     anki_deck = genanki.Deck(id_generator(), deck_name)
 
     anki_deck = genanki.Deck(id_generator(), deck_name)
 
-    for card in md_cards:
-        note_list = anki_note_from_list(card)
+    for cards in learningcards:
+        note_list = anki_note_from_list(cards)
         for note in note_list:
             anki_deck.add_note(note)
 
     card_package = genanki.Package(anki_deck)
     card_package.media_files = media_list
     card_package.write_to_file(deck_name + ".apkg")
-    print("Writing file was succesful!")
+    print("Writing file was successful!")
 
 
 def anki_note(card: LearningCard):
