@@ -24,7 +24,7 @@ def parse_md_cards(file_string: str) -> list:
             card_control["question"] = False
 
         # start tag of the card
-        if line.startswith(tags_md["card_begin"]):
+        if line.startswith(tags_md["card_begin"]) or line.startswith(tags_md["card_section"]):
 
             card_control["simple"] = False
             card_control["question"] = False
