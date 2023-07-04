@@ -2,8 +2,6 @@ import os
 from typing import TextIO
 from tags import start_tag
 
-# Todo to stop reading the entire file at once, and return a list of filepaths? to parse
-
 
 def get_valid_cardfiles_from_dir(path: str, deck_tag: str) -> list:
     """

@@ -147,4 +147,4 @@ md_to_anki("/Users/joinas/Documents/Uni/Software-Engineering/Markdown-Anki/Markd
 
 
 # md_to_anki("./testDir/", "#Mango", "MangoTest")
-md_to_anki("./basicCardTest.md", "#Mango", "MangoTest")
+# md_to_anki("./basicCardTest.md", "#Mango", "MangoTest")

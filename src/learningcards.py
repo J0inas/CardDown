@@ -1,3 +1,7 @@
+from file_loader import start_tag
+from tags import tags_md, card_control
+
+
 class LearningCard:
     def __init__(self):
         self.front = None

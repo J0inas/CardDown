@@ -39,6 +39,14 @@ def card_content_to_html(content: LearningCard) -> str:
         tags_md["img_end"],
     )
     
+    replaced_content = replace_tag (
+        replaced_content,
+        tags_md["link_file_begin"],
+        tags_md["link_file_end"],
+        tags_md["font_color_begin"],
+        tags_md["font_color_end"],
+    )
+    
     html_content = markdown.markdown(replaced_content)
     
     final_html = replace_tag(
