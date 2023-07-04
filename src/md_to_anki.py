@@ -1,9 +1,12 @@
-import random
-import genanki
-from tags import *
-from learningcards import *
-from file_loader import *
 from md_to_html import card_content_to_html
+from file_loader import *
+from learningcards import *
+from tags import *
+import os
+import genanki
+import random
+from pudb import set_trace
+# set_trace()
 
 
 def md_to_anki(input: str, deck_tag: str, deck_name: str):
@@ -15,7 +18,7 @@ def md_to_anki(input: str, deck_tag: str, deck_name: str):
     returns: message that anki-deck was created
     """
     # directory-converter
-    if os.path.isdir(input) == True:
+    if os.path.isdir(input) is True:
         path_to_anki(input, deck_tag, deck_name)
         return
     # single-file-converter
@@ -52,6 +55,7 @@ def path_to_anki(path: str, deck_tag: str, deck_name: str):
     :deck_name: name of the Anki-Deck
     """
     cardlist = load_multiple_files(path, deck_tag)
+
     print(cardlist)
     md_cards = []
     print(cardlist)
@@ -62,8 +66,8 @@ def path_to_anki(path: str, deck_tag: str, deck_name: str):
 
     anki_deck = genanki.Deck(id_generator(), deck_name)
 
-    anki_deck = genanki.Deck(id_generator(),deck_name)
-    
+    anki_deck = genanki.Deck(id_generator(), deck_name)
+
     for card in md_cards:
         note_list = anki_note_from_list(card)
         for note in note_list:
@@ -81,6 +85,7 @@ def anki_note(card: LearningCard):
     :card: A converted MarkDown-Card
     returns: single anki-flashcard
     """
+    print(card.get_front_content())
     model = genanki.BASIC_MODEL
     front = card_content_to_html(card.get_front_content())
     back = card_content_to_html(card.get_back_content())
@@ -109,22 +114,23 @@ def anki_note_from_list(card_list: list):
     return note_list
 
 
-def get_media_from_path(path : str)-> list:
+def get_media_from_path(path: str) -> list:
     """
     Returns every media file from the path as a list.
     Media is a png, jpeg, mp3, gif or mp4.
     """
-    os.chdir(path) 
+    os.chdir(path)
     files = os.listdir()
     media_files = []
-    for x in files:
-        if x[-4:] == ".png" or  x[-4:] == ".mp3" or  x[-4:] == ".gif" or  x[-4:] == ".mp4":
-            media_files.append(x)
-        elif x[-5:] == ".jpeg":
-            media_files.append(x)
-        else:
-            continue
+    supportedMediaTypes = [".png", "mp3", ".gif", ".mp4", ".jpeg"]
+    for filename in files:
+        for type in supportedMediaTypes:
+            if filename.endswith(type):
+                media_files.append(filename)
+            else:
+                continue
     return media_files
+
 
 def id_generator():
     """
@@ -139,3 +145,7 @@ def id_generator():
 md_to_anki("/Users/joinas/Documents/Uni/Software-Engineering/Markdown-Anki/Markdown-LearningCards", "#Test", "Test")
 
 # md_to_anki("/Users/joinas/Documents/Obsidian/Life","#AlgoGeo","AlgoGeoTest")
+
+
+# md_to_anki("./testDir/", "#Mango", "MangoTest")
+md_to_anki("./basicCardTest.md", "#Mango", "MangoTest")

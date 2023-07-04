@@ -1,6 +1,12 @@
-name: Lint
+name: Black Formatter 
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull-request:
+    branches:
+      -main
 
 jobs:
   lint:
@@ -8,3 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: psf/black@stable
+        with:
+          options: "--verbose"
+          src: "./src"

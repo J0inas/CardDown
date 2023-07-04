@@ -11,7 +11,7 @@ def text_file_peek(file: TextIO, n: int) -> str:
 
 def text_file_peek_line(file: TextIO, number_of_lines=1) -> str:
     previousPosition = file.tell()
-    content = ''
+    content = ""
     for i in range(number_of_lines):
         content += str(file.readline())
     # return to the previousPosition

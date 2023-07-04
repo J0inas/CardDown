@@ -1,5 +1,7 @@
 from tags import tags_md, card_control
-from file_loader import *
+from file_loader import start_tag
+
+# Todo Move to seperate parser class/file
 
 
 def parse_md_cards(file_string: str) -> list:
@@ -10,26 +12,27 @@ def parse_md_cards(file_string: str) -> list:
 
     # traversing through file, line by line
     for line in file_string.splitlines():
-        
+        # empty line skipped
+        if line == "":
+            continue
+
         if line == start_tag:
             continue
-        
-        if tags_md.get("seperator") in line:
+
+        if tags_md["seperator"] in line:
             card_control["simple"] = False
             card_control["question"] = False
-        
+
         # start tag of the card
-        if line[0 : len(tags_md.get("start"))] == (tags_md.get("start")) or line[
-            0 : len(tags_md.get("section"))
-        ] == (tags_md.get("section")):
+        if line.startswith(tags_md["card_begin"]):
+
             card_control["simple"] = False
             card_control["question"] = False
 
             # new questioncard
             # checking last letters for the given question_card-tag
-            if line[(-len((tags_md.get("question_card")))) : len(line)] == (
-                tags_md.get("question_card")
-            ):
+
+            if line.endswith(tags_md["question_card"]):
                 # for card content
                 card_control["question"] = True
                 new_questioncard = QuestionCard()
@@ -43,33 +46,28 @@ def parse_md_cards(file_string: str) -> list:
                 new_simplecard.set_front_content(line)
                 learningcard_list.append(new_simplecard)
 
-        # content of simplecard
-        elif card_control["simple"] == True:
-            learningcard_list[len(learningcard_list)-1].set_back_content(line)
+        elif line.startswith(tags_md["card_section"]):
+            # content of questioncard
+            if card_control["question"] is True:
+                # if section-tag is detected
+                if line.startswith(tags_md["card_section"]):
+                    card_control["back"] = False
 
-        # content of questioncard
-        elif card_control["question"] == True:
-            # if section-tag is detected
-            if line[0 : len(tags_md.get("section"))] == (tags_md.get("section")):
-                card_control["back"] = False
+                    # if front-tag detected
+                    if line.endswith(tags_md["front"]):
+                        # function slices the string so that the front tag is removed
+                        learningcard_list[len(learningcard_list) - 1].set_front_content(
+                            line
+                        )
 
-                # if front-tag detected
-                if line[(-len((tags_md.get("front")))) : len(line)] == (
-                    tags_md.get("front")
-                ):
-                    # function slices the string so that the front tag is removed
-                    learningcard_list[len(learningcard_list) - 1].set_front_content(
-                        line
-                    )
+                    # back
+                    elif line.endswith(tags_md["back"]):
 
-                # back
-                elif line[(-len((tags_md.get("back")))) : len(line)] == (
-                    tags_md.get("back")
-                ):
-                    card_control["back"] = True
+                        card_control["back"] = True
 
-            elif card_control["back"] is True:
-                learningcard_list[len(learningcard_list) - 1].set_back_content(line)
+        elif card_control["back"] or card_control["simple"]:
+            learningcard_list[len(learningcard_list) -
+                              1].set_back_content(line)
 
     return learningcard_list
 
@@ -109,7 +107,7 @@ class SimpleCard(LearningCard):
         self.front = line
 
     def set_back_content(self, line):
-        if self.back == None:
+        if self.back is None:
             self.back = line
         # lines get concatenated
         else:
@@ -124,4 +122,4 @@ class QuestionCard(SimpleCard):
 
     def set_front_content(self, line):
         # line without front-tag
-        self.front = line[0 : (-len((tags_md.get("front"))))]
+        self.front = line[0: (-len((tags_md.get("front"))))]

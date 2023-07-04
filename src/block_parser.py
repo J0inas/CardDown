@@ -3,10 +3,7 @@ from typing import Tuple
 from typing import TextIO
 from utility import text_file_peek_line
 
-tags_dict = {
-    'startTag': '{card}',
-    'sepTag': '----'
-}
+tags_dict = {"startTag": "{card}", "sepTag": "----"}
 
 valid_tag_list = tags_dict.values()
 
@@ -19,17 +16,17 @@ def get_cards(file_path: str) -> list:
 
     cardlist = []
     if os.path.exists(file_path):
-        f = open(file_path, 'r', encoding='utf-8')
+        f = open(file_path, "r", encoding="utf-8")
 
         # until end of file is reached try to fetch cards
-        while text_file_peek_line(f) != '':
+        while text_file_peek_line(f) != "":
             # get a card from the current file position
             next_card = get_next_card(f)
             if next_card is not None:
                 # add card to the list
                 cardlist.append(next_card)
     else:
-        print('File could not be found:' + file_path)
+        print("File could not be found:" + file_path)
 
     return cardlist
 
@@ -43,16 +40,16 @@ def get_next_card(file: TextIO) -> list:
     card = [[], [], []]
 
     # find start, get tag from tuple for later usage
-    card[0] = get_next_Tag(file, tags_dict['startTag'])[0]
+    card[0] = get_next_Tag(file, tags_dict["startTag"])[0]
 
     # attempt to find card separator
     tag, content = get_next_Tags(file, valid_tag_list)
 
-    print('Content:' + content)
+    print("Content:" + content)
 
-    print('Tag:' + str(tag))
+    print("Tag:" + str(tag))
 
-    if tag == tags_dict['sepTag']:
+    if tag == tags_dict["sepTag"]:
         card[1] = content
     else:
         # card is not valid
@@ -65,7 +62,7 @@ def get_next_card(file: TextIO) -> list:
 
     tag, content = get_next_Tags(file, valid_tag_list)
 
-    if tag == tags_dict['sepTag'] or tag == tags_dict['startTag']:
+    if tag == tags_dict["sepTag"] or tag == tags_dict["startTag"]:
         card[2] = content
     else:
         # card is not valid
@@ -79,7 +76,7 @@ def get_next_card(file: TextIO) -> list:
 
 def get_next_Tag(file: TextIO, searchTag: str) -> Tuple[str, str]:
     """
-    allows the passing of just a string which will 
+    allows the passing of just a string which will
     then be put in list, so it can be passed to get_next_Tags
     """
     tag_as_list = [searchTag]
@@ -90,22 +87,22 @@ def get_next_Tags(file: TextIO, validTags: list) -> Tuple[str, str]:
     """
     gets the next Tag from the list
     """
-    content = ''
-    found_tag = ''
-    currline = 'something thats not empty'
+    content = ""
+    found_tag = ""
+    currline = "something thats not empty"
     # read till EOF
-    while not currline == '':
+    while not currline == "":
         currline = text_file_peek_line(file)
         print(validTags)
         print(currline)
         for tag in validTags:
-            print('CurrTag:' + str(tag))
+            print("CurrTag:" + str(tag))
             if currline.startswith(tag):
                 found_tag = tag
                 break
 
         file.readline()
-        if found_tag != '':
+        if found_tag != "":
             break
 
         content += currline
@@ -117,7 +114,7 @@ def reset_position_by_tag(tag: str, file: TextIO):
     reset the file pointer to the position before the tag was read
     """
     # dont reset if empty line was found
-    if (tag == ''):
+    if tag == "":
         pass
     else:
-        file.seek(file.tell() - (len(tag)+1), 0)
+        file.seek(file.tell() - (len(tag) + 1), 0)
