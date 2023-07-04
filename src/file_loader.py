@@ -11,9 +11,9 @@ def get_valid_cardfiles_from_dir(path: str, deck_tag: str) -> list:
     returns: list of md_cards
     """
     # go to path
-    os.chdir(path)
-    files = os.listdir()
-    card_filenames = [str]
+
+    files = os.listdir(path)
+    card_filenames = [""]
     for filename in files:
         if filename.endswith(".md"):
             print(filename)
@@ -37,7 +37,7 @@ def is_valid_cardfile(file_name: str, deck_tag: str) -> str:
         f = open(file_name, "r")
         f.seek(0)
 
-        check_tags = contains_cardTags(f, [start_tag, deck_tag])
+        check_tags = contains_cardTags(f, deck_tag)
 
         if check_tags is False:
             f.close()

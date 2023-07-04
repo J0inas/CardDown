@@ -1,5 +1,5 @@
 from md_to_html import card_content_to_html
-from file_loader import is_valid_cardfile, check_dir_files_valitidy
+from file_loader import is_valid_cardfile, get_valid_cardfiles_from_dir
 from cardparser import simple_parser
 from learningcards import LearningCard
 import os
@@ -54,10 +54,10 @@ def path_to_anki(path: str, deck_tag: str, deck_name: str):
     :deck_tag: name of the tag that is given after the start_tag in the file
     :deck_name: name of the Anki-Deck
     """
-    filenames = check_dir_files_valitidy(path, deck_tag)
+
+    filenames = get_valid_cardfiles_from_dir(path, deck_tag)
 
     learningcards = []
-    print(filenames)
     media_list = get_media_from_path(path)
     for card in filenames:
         learningcards.append(simple_parser.get_cards_from_file(card))
@@ -118,8 +118,7 @@ def get_media_from_path(path: str) -> list:
     Returns every media file from the path as a list.
     Media is a png, jpeg, mp3, gif or mp4.
     """
-    os.chdir(path)
-    files = os.listdir()
+    files = os.listdir(path)
     media_files = []
     supportedMediaTypes = [".png", "mp3", ".gif", ".mp4", ".jpeg"]
     for filename in files:
@@ -141,10 +140,10 @@ def id_generator():
 
 
 # test
-md_to_anki("/Users/joinas/Documents/Uni/Software-Engineering/Markdown-Anki/Markdown-LearningCards", "#Test", "Test")
+# md_to_anki("/Users/joinas/Documents/Uni/Software-Engineering/Markdown-Anki/Markdown-LearningCards", "#Test", "Test")
 
 # md_to_anki("/Users/joinas/Documents/Obsidian/Life","#AlgoGeo","AlgoGeoTest")
 
 
-# md_to_anki("./testDir/", "#Mango", "MangoTest")
-# md_to_anki("./basicCardTest.md", "#Mango", "MangoTest")
+md_to_anki("testDir", "#Mango", "MangoTest")
+md_to_anki("./basicCardTest.md", "#Mango", "MangoTest")
