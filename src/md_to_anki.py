@@ -65,8 +65,6 @@ def path_to_anki(path: str, deck_tag: str, deck_name: str):
 
     anki_deck = genanki.Deck(id_generator(), deck_name)
 
-    anki_deck = genanki.Deck(id_generator(), deck_name)
-
     for cards in learningcards:
         note_list = anki_note_from_list(cards)
         for note in note_list:
