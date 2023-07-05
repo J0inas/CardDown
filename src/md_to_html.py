@@ -1,6 +1,7 @@
 import markdown
 from learningcards import *
 from tags import tags_html
+from file_loader import *
 
 
 def mdToHtml(card_file: str, html_output: str):
@@ -31,7 +32,7 @@ def card_content_to_html(content: LearningCard) -> str:
 
     returns: html in String format
     """
-    replaced_content = replace_tag(
+    replaced_content_img = replace_tag(
         content,
         tags_md["obsidian_img_begin"],
         tags_md["obsidian_img_end"],
@@ -40,7 +41,7 @@ def card_content_to_html(content: LearningCard) -> str:
     )
     
     replaced_content = replace_tag (
-        replaced_content,
+        replaced_content_img,
         tags_md["link_file_begin"],
         tags_md["link_file_end"],
         tags_md["font_color_begin"],

@@ -35,7 +35,11 @@ def is_valid_cardfile(file_name: str, deck_tag: str) -> str:
 
     try:
         f = open(file_name, "r")
-        f.seek(0)
+    except FileNotFoundError:
+        print("File not found, try again.")
+        return ""
+    file_string = f.read()
+    f.seek(0)
 
         check_tags = contains_cardTags(f, deck_tag)
 
@@ -45,9 +49,6 @@ def is_valid_cardfile(file_name: str, deck_tag: str) -> str:
 
         f.close()
         return file_name
-    except FileNotFoundError:
-        print("File not found, try again.")
-        return ""
 
 
 def contains_cardTags(file: TextIO, tags: list[str]) -> bool:
