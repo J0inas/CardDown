@@ -25,10 +25,10 @@ tags_md = {
     "obsidian_img_end": "]]",
     "img_begin": '![](<',
     "img_end": '>)',
-    "link_file_begin" : "[[",
-    "link_file_end"   : "]]",
-    "font_color_begin" : "<font color = #FF8C00>",
-    "font_color_end" : "</font>"
+    "link_file_begin": "[[",
+    "link_file_end": "]]",
+    "font_color_begin": "<font color = #FF8C00>",
+    "font_color_end": "</font>"
 }
 
 # controls the file traversal

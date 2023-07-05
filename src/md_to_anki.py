@@ -118,7 +118,7 @@ def get_media_from_path(path: str) -> list:
     Returns every media file from the path as a list.
     Media is a png, jpeg, mp3, gif or mp4.
     """
-    files = os.listdir(path)
+    files = os.listdir()
     media_files = []
     supportedMediaTypes = [".png", "mp3", ".gif", ".mp4", ".jpeg"]
     for filename in files:
@@ -140,7 +140,7 @@ def id_generator():
 
 
 # test
-md_to_anki("/Users/joinas/Documents/Uni/Software-Engineering/Markdown-Anki/Markdown-LearningCards/testDir", "#Test", "TestMerge")
+# md_to_anki("/Users/joinas/Documents/Uni/Software-Engineering/Markdown-Anki/Markdown-LearningCards/testDir", "#Test", "TestMerge")
 
 # md_to_anki("/Users/joinas/Documents/Obsidian/Life","#AlgoGeo","AlgoGeoTest")
 
