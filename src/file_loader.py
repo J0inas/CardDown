@@ -34,38 +34,38 @@ def load_one_file(file_name: str, deck_tag: str) -> str:
     """
     try:
         f = open(file_name, "r")
-        f.seek(0)
-
-        check_flash = contains_tag(f, start_tag)
-        check_deck = contains_tag(f, deck_tag)
-        if check_flash is False:
-            print("No flashcards found in file.")
-            return ""
-        if check_deck is False:
-            print("No belonging deck in file.")
-            return ""
-        return f.read()
     except FileNotFoundError:
         print("File not found, try again.")
         return ""
+    
+    f.seek(0)
+
+    check_flash = contains_tag(f, start_tag)
+    check_deck = contains_tag(f, deck_tag)
+    if check_flash is False:
+        print("No flashcards found in file.")
+        return ""
+    
+    if check_deck is False:
+        print("No belonging deck in file.")
+        return ""
+
+    f.seek(0)
+    return f.read()
+    
 
 
 def contains_tag(file: object, tag: str) -> bool:
     """
     Looks at the first line of the given file and searches for the tag.
     """
-
-    foundTag = False
-    prevPosition = file.tell()
     file.seek(0)
 
     if tag in file.readline():
-
-        for x in file.readlines():
-            if tag in x:
-                foundTag = True
-                break
-
-    # reset position in the file handle
-    file.seek(prevPosition)
-    return foundTag
+        return True
+    
+    for x in file.readlines():
+        if tag in x:
+            return True
+            
+    return False
