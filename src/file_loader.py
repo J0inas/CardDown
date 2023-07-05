@@ -41,14 +41,14 @@ def is_valid_cardfile(file_name: str, deck_tag: str) -> str:
     file_string = f.read()
     f.seek(0)
 
-        check_tags = contains_cardTags(f, deck_tag)
+    check_tags = contains_cardTags(f, deck_tag)
 
-        if check_tags is False:
-            f.close()
-            return ""
-
+    if check_tags is False:
         f.close()
-        return file_name
+        return ""
+
+    f.close()
+    return file_name
 
 
 def contains_cardTags(file: TextIO, tags: list[str]) -> bool:
