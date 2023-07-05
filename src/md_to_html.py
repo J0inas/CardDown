@@ -1,6 +1,7 @@
 import markdown
 from learningcards import *
 from tags import tags_html
+from file_loader import *
 
 
 def mdToHtml(card_file: str, html_output: str):
