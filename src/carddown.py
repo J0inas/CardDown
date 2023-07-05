@@ -4,4 +4,7 @@ from config_processor import get_cfg_args
 
 cli_args = get_cli_args()
 
+
+print(cli_args)
+
 cfg_args = get_cfg_args(cli_args.configpath)
