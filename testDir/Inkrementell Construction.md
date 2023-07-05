@@ -15,6 +15,7 @@ Das sollte nicht auf der Karte sein
 
 ## Wodurch lässt sich dieses Paradigma verbessern?
 [[Randomization]] - [[Randomized Incremental Construction]]
+- Bug found, oh noo
 
 ---
 #Test
