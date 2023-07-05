@@ -37,7 +37,7 @@ def load_one_file(file_name: str, deck_tag: str) -> str:
     except FileNotFoundError:
         print("File not found, try again.")
         return ""
-    
+    file_string = f.read()
     f.seek(0)
 
     check_flash = contains_tag(f, start_tag)
@@ -50,8 +50,7 @@ def load_one_file(file_name: str, deck_tag: str) -> str:
         print("No belonging deck in file.")
         return ""
 
-    f.seek(0)
-    return f.read()
+    return file_string
     
 
 
