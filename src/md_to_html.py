@@ -1,7 +1,8 @@
 import markdown
 from learningcards import *
 from tags import tags_html
-from file_loader import *
+from file_loader import is_valid_cardfile
+from cardparser import simple_parser
 
 
 def mdToHtml(card_file: str, html_output: str):
@@ -13,9 +14,9 @@ def mdToHtml(card_file: str, html_output: str):
     returns: file with html name
     """
     # load the md file
-    md_str = load_one_file(card_file)
+    md_str = is_valid_cardfile(card_file)
     # parse the md text into the cards
-    md_cards = parse_md_cards(md_str)
+    md_cards = simple_parser.get_cards_from_file(md_str)
     # parse the md_cards to html-text
     html_cards = parse_html_cards(md_cards)
     # write the html_cards into a new file

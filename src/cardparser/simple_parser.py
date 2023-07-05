@@ -3,14 +3,17 @@ from file_loader import start_tag
 from learningcards import SimpleCard, QuestionCard
 
 
-def get_cards_from_file(filepath: str) -> list:
+def get_cards_from_file(file_name: str) -> list:
     """
     Parser for the simple Markdown-Heading Card Syntax
     returns: List of different LearningCards
     """
     learningcard_list = []
-
-    file = open(filepath, "r")
+    try:
+        file = open(file_name, "r")
+    except FileNotFoundError:
+        print("File not found, try again.")
+        return []
 
     # traversing through file, line by line
     for line in file:
