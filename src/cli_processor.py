@@ -18,6 +18,9 @@ cli_parser.add_argument(
 cli_parser.add_argument(
     "-c", "--config", dest="configpath", default="", type=str, help="Filepath or directory to a config.ini file.")
 
+cli_parser.add_argument(
+    "-o", "--output", dest="savepath", default="", type=str, help="Path were the .apkg should be saved"
+)
 
 cli_args = False
 
