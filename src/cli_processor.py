@@ -7,7 +7,9 @@ cli_parser = argparse.ArgumentParser(
 
 
 cli_parser.add_argument(
-    "path", type=str, nargs="+", help="Path to either a single Markdown file, or a directory containing them")
+    "path", type=str, nargs="?", help="""Path to either a single Markdown file, or a directory containing them.
+    if no Path is provided, the config.toml will be checked for a card path, otherwise the current working directory is used.
+    """)
 cli_parser.add_argument(
     "-mp", "--mediapath", dest="mediapath", default="", type=str, help="Directory containing media files (default: Directory of the cards)")
 cli_parser.add_argument(

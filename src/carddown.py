@@ -1,6 +1,7 @@
 from cli_processor import get_cli_args
 from config_processor import load_cfg_args
 from md_to_anki import md_to_anki
+from os import getcwd
 import carddown_defaults
 
 
@@ -29,6 +30,9 @@ def overwrite_cfg_with_cli_input(cli_args, cfg_args):
         # TODO provide bash completion
         # TODO support multiple paths
         cfg_args["deck"]["card_path"] = cli_args.path[0]
+
+    else:
+        cfg_args["deck"]["card_path"] = getcwd()
 
     if cli_args.decktag:
         cfg_args["deck"]["tag"] = cli_args.decktag
