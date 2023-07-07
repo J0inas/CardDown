@@ -7,7 +7,7 @@ import genanki
 import random
 
 
-def md_to_anki(input: str, deck_tag: str, deck_name: str):
+def md_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str, parser=simple_parser, media_path=None):
     """
     Creates an anki-deck from the given md-file.
     :input: single file or path
@@ -16,16 +16,26 @@ def md_to_anki(input: str, deck_tag: str, deck_name: str):
 
     returns: message that anki-deck was created
     """
+
+    # make sure we are working with an absolute path
+    path = os.path.abspath(path)
+
+    if not media_path:
+        if not os.path.isdir(media_path):
+            media_path = path
+
     # directory-converter
-    if os.path.isdir(input) is True:
-        path_to_anki(input, deck_tag, deck_name)
+
+    if os.path.isdir(path) is True:
+        path_to_anki(path, start_tag, deck_tag, deck_name, media_path, parser)
         return
+
     # single-file-converter
-    file_to_anki(input, deck_tag, deck_name)
+    file_to_anki(path, deck_tag, deck_name, parser)
     return
 
 
-def file_to_anki(file_name: str, deck_tag: str, deck_name: str):
+def file_to_anki(file_name: str, deck_tag: str, deck_name: str, parser):
     """
     :file_name: str of file that should be converted
     :deck_tag: name of the tag that is given after the start_tag in the file
@@ -37,7 +47,7 @@ def file_to_anki(file_name: str, deck_tag: str, deck_name: str):
     # empty/unvalid file has no need to be converted
     if card_filename is None:
         return
-    flashcards = simple_parser.get_cards_from_file(card_filename)
+    flashcards = parser.get_cards_from_file(card_filename)
     # generating the anki file
     anki_deck = genanki.Deck(id_generator(), deck_name)
     for card in flashcards:
@@ -48,19 +58,21 @@ def file_to_anki(file_name: str, deck_tag: str, deck_name: str):
     print("Writing file was successful!")
 
 
-def path_to_anki(path: str, deck_tag: str, deck_name: str):
+def path_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str,  media_path, parser):
     """
     :path: str of the path where the md-files are located
     :deck_tag: name of the tag that is given after the start_tag in the file
     :deck_name: name of the Anki-Deck
     """
 
-    filenames = get_valid_cardfiles_from_dir(path, deck_tag)
+    filenames = get_valid_cardfiles_from_dir(path, start_tag, deck_tag)
 
     learningcards = []
-    media_list = get_media_from_path(path)
+
+    media_list = get_media_from_path(media_path)
+
     for card in filenames:
-        learningcards.append(simple_parser.get_cards_from_file(card))
+        learningcards.append(parser.get_cards_from_file(card))
         print(learningcards)
 
     anki_deck = genanki.Deck(id_generator(), deck_name)

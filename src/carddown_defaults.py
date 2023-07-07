@@ -2,7 +2,7 @@ config = """# Test config for CardDown
 [deck]
 name = "ConfigTest"
 tag = ""
-startTag = ""
+start_tag = ""
 seperator = ""
 save_path = ""
 card_path = ""

@@ -1,7 +1,8 @@
 from cli_processor import get_cli_args
 from config_processor import load_cfg_args
 from md_to_anki import md_to_anki
-from os import getcwd
+from cardparser import simple_parser, block_parser
+from os import curdir, getcwd
 import carddown_defaults
 
 
@@ -10,8 +11,6 @@ def main():
     cli_args, cfg_args = load_args()
 
     overwrite_cfg_with_cli_input(cli_args, cfg_args)
-
-    print(cfg_args)
 
     execute(cfg_args)
 
@@ -29,9 +28,11 @@ def overwrite_cfg_with_cli_input(cli_args, cfg_args):
     if cli_args.path:
         # TODO provide bash completion
         # TODO support multiple paths
-        cfg_args["deck"]["card_path"] = cli_args.path[0]
+        cfg_args["deck"]["card_path"] = cli_args.path
+        print(cli_args.path)
 
     else:
+        # cfg_args["deck"]["card_path"] = curdir
         cfg_args["deck"]["card_path"] = getcwd()
 
     if cli_args.decktag:
@@ -41,9 +42,13 @@ def overwrite_cfg_with_cli_input(cli_args, cfg_args):
     if cli_args.mediapath:
         cfg_args["media"]["path"] = cli_args.mediapath
 
-    # TODO implement
     if cli_args.parser:
-        cfg_args["parser"]["type"] = cli_args.parser
+
+        if cli_args.parser == "block":
+            cfg_args["parser"]["type"] = block_parser
+
+        else:
+            cfg_args["parser"]["type"] = simple_parser
 
     # TODO implement
     if cli_args.savepath:
@@ -54,9 +59,8 @@ def overwrite_cfg_with_cli_input(cli_args, cfg_args):
 
 
 def execute(cfg):
-    print(cfg["deck"]["card_path"] is str)
-    md_to_anki(cfg["deck"]["card_path"], cfg["deck"]
-               ["tag"], cfg["deck"]["name"])
+    md_to_anki(cfg["deck"]["card_path"], cfg["deck"]["start_tag"], cfg["deck"]
+               ["tag"], cfg["deck"]["name"], cfg["parser"]["type"], cfg["media"]["path"])
 
 
 if __name__ == "__main__":

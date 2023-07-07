@@ -1,5 +1,4 @@
 from tags import tags_md, card_control
-from file_loader import start_tag
 from learningcards import SimpleCard, QuestionCard
 
 
@@ -19,9 +18,6 @@ def get_cards_from_file(file_name: str) -> list:
     for line in file:
         # empty line skipped
         if line == "":
-            continue
-
-        if line == start_tag:
             continue
 
         if tags_md["seperator"] in line:

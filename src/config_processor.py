@@ -19,6 +19,7 @@ def load_cfg_args(cfg_path: str):
     cfg_file_handle = open(cfg_path, "rb")
 
     cfg_args = load(cfg_file_handle)
+    cfg_file_handle.close()
     return cfg_args
 
 
@@ -37,7 +38,9 @@ def get_default_config():
 
     # TODO implement?
     f = open("src/cardconfig/config.toml", "rb")
-    return load(f)
+    default = load(f)
+    f.close
+    return default
 
 
 cli_args = False
