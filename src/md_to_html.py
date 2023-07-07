@@ -33,7 +33,7 @@ def card_content_to_html(content: LearningCard) -> str:
 
     returns: html in String format
     """
-    replaced_content_img = replace_tag(
+    img_content = replace_tag(
         content,
         tags_md["obsidian_img_begin"],
         tags_md["obsidian_img_end"],
@@ -42,14 +42,22 @@ def card_content_to_html(content: LearningCard) -> str:
     )
     
     replaced_content = replace_tag (
-        replaced_content_img,
+        img_content,
         tags_md["link_file_begin"],
         tags_md["link_file_end"],
         tags_md["font_color_begin"],
         tags_md["font_color_end"],
     )
     
-    html_content = markdown.markdown(replaced_content)
+    latex_content = replace_tag(
+        replaced_content,
+        tags_md["latex_in_md_begin"],
+        tags_md["latex_in_md_end"],
+        tags_md["latex_anki_begin"],
+        tags_md["latex_anki_end"],
+    )
+    
+    html_content = markdown.markdown(latex_content)
     
     final_html = replace_tag(
         html_content,
@@ -58,6 +66,8 @@ def card_content_to_html(content: LearningCard) -> str:
         tags_html["strike_begin"],
         tags_html["strike_end"],
     )
+    
+    
     return final_html
 
 
@@ -97,11 +107,11 @@ def replace_tag(
         # begin or end tag?
         if i % 2 == 0:
             replace_tag = tag_replacement_end
-            i = 0
+            i = 0 
         if find != -1:
-            string = string[:find] + replace_tag + " " + string[find + len(md_tag_end) :]
+            string = string[:find] + replace_tag + string[find + len(md_tag_end):]
+            print (string)
             i += 1
-            # breakpoint()
         find = string.find(md_tag_end)
     return string
 

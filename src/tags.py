@@ -28,7 +28,11 @@ tags_md = {
     "link_file_begin": "[[",
     "link_file_end": "]]",
     "font_color_begin": "<font color = #FF8C00>",
-    "font_color_end": "</font>"
+    "font_color_end": "</font>",
+    "latex_in_md_begin" : "$",
+    "latex_in_md_end" : "$ ",
+    "latex_anki_begin" :"[$]",
+    "latex_anki_end" : "[/$]"
 }
 
 # controls the file traversal
