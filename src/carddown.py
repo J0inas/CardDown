@@ -37,12 +37,15 @@ def overwrite_cfg_with_cli_input(cli_args, cfg_args):
     if cli_args.decktag:
         cfg_args["deck"]["tag"] = cli_args.decktag
 
+    # TODO implement
     if cli_args.mediapath:
         cfg_args["media"]["path"] = cli_args.mediapath
 
+    # TODO implement
     if cli_args.parser:
         cfg_args["parser"]["type"] = cli_args.parser
 
+    # TODO implement
     if cli_args.savepath:
         cfg_args["deck"]["save_path"] = cli_args.savepath
     else:
