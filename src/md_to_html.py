@@ -123,6 +123,7 @@ replace_tag - Test
 """
 test_string = "Das ist ein [[Test]] für [[Latex]]: WTF passiert hier $frac12$ nennt man auch Einhalb. $\pi$ ist kleiner als drei Äpfel!"
 # test_string = "Das ist ein [[Test]] für [[Latex]]"
+# test_string = "$1618$ bis $1648$"
 test_tag = replace_tag(
     test_string,
     tags_md["latex_in_md_begin"],
