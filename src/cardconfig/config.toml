@@ -2,7 +2,6 @@
 [deck]
 name = "ConfigTest"
 tag = ""
-start_tag = ""
 seperator = ""
 save_path = ""
 card_path = ""
