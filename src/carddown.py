@@ -1,16 +1,21 @@
 from cli_processor import get_cli_args
-from config_processor import load_cfg_args
+from config_processor import load_cfg_args, calibrate_config_args
 from md_to_anki import md_to_anki
-from cardparser import simple_parser, block_parser
-from os import curdir, getcwd
-import carddown_defaults
+from os import getcwd
+
+# global var wich will contain the runconfig
+current_config = None
 
 
 def main():
-
+    global current_config
     cli_args, cfg_args = load_args()
 
     overwrite_cfg_with_cli_input(cli_args, cfg_args)
+
+    calibrate_config_args(cfg_args)
+
+    current_config = cfg_args
 
     execute(cfg_args)
 
@@ -38,17 +43,11 @@ def overwrite_cfg_with_cli_input(cli_args, cfg_args):
     if cli_args.decktag:
         cfg_args["deck"]["tag"] = cli_args.decktag
 
-    # TODO implement
     if cli_args.mediapath:
         cfg_args["media"]["path"] = cli_args.mediapath
 
     if cli_args.parser:
-
-        if cli_args.parser == "block":
-            cfg_args["parser"]["type"] = block_parser
-
-        else:
-            cfg_args["parser"]["type"] = simple_parser
+        cfg_args["parser"]["type"] = cli_args.parser
 
     # TODO implement
     if cli_args.savepath:
@@ -59,6 +58,7 @@ def overwrite_cfg_with_cli_input(cli_args, cfg_args):
 
 
 def execute(cfg):
+
     md_to_anki(cfg["deck"]["card_path"], cfg["deck"]["start_tag"], cfg["deck"]
                ["tag"], cfg["deck"]["name"], cfg["parser"]["type"], cfg["media"]["path"])
 

@@ -1,6 +1,6 @@
 import markdown
 from learningcards import *
-from tags import tags_html
+from tags import tags_html, tags_md
 from file_loader import is_valid_cardfile
 from cardparser import simple_parser
 
@@ -40,17 +40,17 @@ def card_content_to_html(content: LearningCard) -> str:
         tags_md["img_begin"],
         tags_md["img_end"],
     )
-    
-    replaced_content = replace_tag (
+
+    replaced_content = replace_tag(
         replaced_content_img,
         tags_md["link_file_begin"],
         tags_md["link_file_end"],
         tags_md["font_color_begin"],
         tags_md["font_color_end"],
     )
-    
+
     html_content = markdown.markdown(replaced_content)
-    
+
     final_html = replace_tag(
         html_content,
         tags_md["strike"],
@@ -99,7 +99,8 @@ def replace_tag(
             replace_tag = tag_replacement_end
             i = 0
         if find != -1:
-            string = string[:find] + replace_tag + " " + string[find + len(md_tag_end) :]
+            string = string[:find] + replace_tag + \
+                " " + string[find + len(md_tag_end):]
             i += 1
             # breakpoint()
         find = string.find(md_tag_end)

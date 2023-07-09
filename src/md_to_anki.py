@@ -7,7 +7,7 @@ import genanki
 import random
 
 
-def md_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str, parser=simple_parser, media_path=None):
+def md_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str, parser=simple_parser, media_path=None, save_path=None):
     """
     Creates an anki-deck from the given md-file.
     :input: single file or path
@@ -24,18 +24,22 @@ def md_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str, parser=
         if not os.path.isdir(media_path):
             media_path = path
 
+    if not save_path:
+        save_path = path
+
     # directory-converter
 
     if os.path.isdir(path) is True:
-        path_to_anki(path, start_tag, deck_tag, deck_name, media_path, parser)
+        path_to_anki(path, start_tag, deck_tag,
+                     deck_name, media_path, parser, save_path)
         return
 
     # single-file-converter
-    file_to_anki(path, deck_tag, deck_name, parser)
+    file_to_anki(path, deck_tag, deck_name, parser, save_path)
     return
 
 
-def file_to_anki(file_name: str, deck_tag: str, deck_name: str, parser):
+def file_to_anki(file_name: str, deck_tag: str, deck_name: str, parser, save_path: str):
     """
     :file_name: str of file that should be converted
     :deck_tag: name of the tag that is given after the start_tag in the file
@@ -54,11 +58,12 @@ def file_to_anki(file_name: str, deck_tag: str, deck_name: str, parser):
         note = anki_note(card)
         anki_deck.add_note(note)
     card_package = genanki.Package(anki_deck)
-    card_package.write_to_file(deck_name + ".apkg")
+    card_package.write_to_file(save_path + deck_name + ".apkg")
     print("Writing file was successful!")
+    # TODO move deck generation/writing to file from notelist to separate function
 
 
-def path_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str,  media_path, parser):
+def path_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str,  media_path, parser, save_path: str):
     """
     :path: str of the path where the md-files are located
     :deck_tag: name of the tag that is given after the start_tag in the file
@@ -84,7 +89,9 @@ def path_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str,  medi
 
     card_package = genanki.Package(anki_deck)
     card_package.media_files = media_list
-    card_package.write_to_file(deck_name + ".apkg")
+    save_path = os.path.join(save_path+deck_name+".apkg")
+    print(save_path)
+    card_package.write_to_file(save_path + deck_name + ".apkg")
     print("Writing file was successful!")
 
 
@@ -147,13 +154,3 @@ def id_generator():
     returns: random number that can be used as an id
     """
     return random.randrange(1 << 30, 1 << 31)
-
-
-# test
-# md_to_anki("/Users/joinas/Documents/Uni/Software-Engineering/Markdown-Anki/Markdown-LearningCards/testDir", "#Test", "TestMerge")
-
-# md_to_anki("/Users/joinas/Documents/Obsidian/Life","#AlgoGeo","AlgoGeoTest")
-
-
-# md_to_anki("testDir", "#Mango", "MangoTest")
-# md_to_anki("./basicCardTest.md", "#Mango", "MangoTest")

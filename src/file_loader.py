@@ -26,7 +26,7 @@ def get_valid_cardfiles_from_dir(path: str, start_tag="", deck_tag="") -> list:
     return card_filenames
 
 
-def is_valid_cardfile(file_name: str, deck_tag: str) -> bool:
+def is_valid_cardfile(file_name: str, start_tag="", deck_tag="") -> bool:
     """
     searches file, error if not found in directory.
     returns: the file in str format
@@ -50,7 +50,7 @@ def is_valid_cardfile(file_name: str, deck_tag: str) -> bool:
     return check_tags
 
 
-def contains_cardTags(file: TextIO, tags: list[str]) -> bool:
+def contains_cardTags(file: TextIO, start_tag: str, deck_tag: str) -> bool:
     """
     Looks at the first line of the given file and searches for the tag.
     """
@@ -60,14 +60,14 @@ def contains_cardTags(file: TextIO, tags: list[str]) -> bool:
     file.seek(0)
 
     for line in file:
-        for tag in tags:
-            if tag in line:
-                if tag == tags[0]:
-                    foundCardTag = True
-                else:
-                    foundDeckTag = True
-                if foundCardTag and foundDeckTag:
-                    break
+        if start_tag in line:
+            foundCardTag = True
+            if foundDeckTag:
+                break
+        if deck_tag in line:
+            foundDeckTag = True
+            if foundCardTag:
+                break
 
     # reset position in the file handle
     file.seek(prevPosition)
