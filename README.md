@@ -30,6 +30,3 @@ Updating Read-Me with images.
  ### What is the motivation behind this project?
  We are computer science students who want to use this tool to create flashcards in anki through our notes from Obsidian and other Markdown-Editors without the extra effort of typing out every flashcard. 
  Instead we wrote a programm that create the flashcards for us from our notes.
-
-### Overview ~~needs to be updated~~
- ![Alt text](<Markdown2Anki - Visualized.png>)
