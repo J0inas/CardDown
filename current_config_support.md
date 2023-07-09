@@ -2,7 +2,7 @@
 
 ## Using the config
 
-To use a config with this project, simply pass the path to the config via '-cf path/of/cfg.toml' to the cli.
+To use a config with this project, simply pass the path to the config via '-c path/of/cfg.toml' to the cli.
 
 Alternatively, position the config in the same directory where you have your cards.
 
