@@ -3,9 +3,7 @@ from tomllib import load, loads
 from carddown_defaults import config
 from cardparser import block_parser, simple_parser
 
-
-if not cfg_args:
-    cfg_args = False
+cfg_args = False
 
 
 def load_cfg_args(cfg_path: str):
