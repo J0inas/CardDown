@@ -89,9 +89,9 @@ def path_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str,  medi
 
     card_package = genanki.Package(anki_deck)
     card_package.media_files = media_list
-    save_path = os.path.join(save_path+deck_name+".apkg")
-    print(save_path)
-    card_package.write_to_file(save_path + deck_name + ".apkg")
+    save_path = os.path.join(save_path, deck_name)
+
+    card_package.write_to_file(save_path + ".apkg")
     print("Writing file was successful!")
 
 
