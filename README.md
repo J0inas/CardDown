@@ -13,5 +13,15 @@
  I'm a computer science student who wants to use this tool to create flashcards in anki through their notes from Obsidian without the extra effort of typing out every flashcard. 
  Instead the cards should be created through this tool.
 
+### Usage
+
+Coming Soon
+
+#### Config
+
+See [here](./current_config_support.md)
+
 ### Overview ~~needs to be updated~~
  ![Alt text](<Markdown2Anki - Visualized.png>)
+ 
+ 
