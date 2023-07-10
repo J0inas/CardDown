@@ -100,7 +100,11 @@ def replace_tag(
     string: str, md_tag_begin: str, md_tag_end: str, tag_replacement_begin: str, tag_replacement_end: str
 ) -> str:
     # -1 if tag not found
-    find = string.find(md_tag_begin)
+    try:
+        find = string.find(md_tag_begin)
+    except AttributeError:
+        return " "
+    
     i = 1
     while find != -1:
         if i % 2 == 0:
