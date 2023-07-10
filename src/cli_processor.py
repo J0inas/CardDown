@@ -17,6 +17,14 @@ cli_parser.add_argument(
 cli_parser.add_argument(
     "-dt", "--decktag", dest="decktag", default="", type=str, help="Tag used to parse Cards from files that contain it")
 
+
+cli_parser.add_argument(
+    "-st", "--starttag", dest="starttag", default="", type=str, help="Tag searched for in files")
+
+
+cli_parser.add_argument(
+    "-n", "--name", dest="deckname", default="deck", type=str, help="Name of the file")
+
 cli_parser.add_argument(
     "-c", "--config", dest="configpath", default="", type=str, help="Filepath or directory to a config.ini file.")
 
