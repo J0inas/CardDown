@@ -46,11 +46,13 @@ def file_to_anki(file_name: str, deck_tag: str, deck_name: str, parser, save_pat
     :deck_name: name of the Anki-Deck
     """
     # check file for valid card file
-    card_filename = is_valid_cardfile(file_name, deck_tag)
 
-    # empty/unvalid file has no need to be converted
-    if card_filename is None:
+    if not is_valid_cardfile(file_name, deck_tag):
+        # empty/unvalid file has no need to be converted
         return
+    else:
+        card_filename = os.path.abspath(file_name)
+
     flashcards = parser.get_cards_from_file(card_filename)
     # generating the anki file
     anki_deck = genanki.Deck(id_generator(), deck_name)

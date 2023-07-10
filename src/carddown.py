@@ -56,8 +56,8 @@ def overwrite_cfg_with_cli_input(cli_args, cfg_args):
         if not cfg_args["deck"]["save_path"]:
             cfg_args["deck"]["save_path"] = cfg_args["deck"]["card_path"]
 
-    if cli_args.name:
-        cfg_args["deck"]["name"] = cli_args.name
+    if cli_args.deckname:
+        cfg_args["deck"]["name"] = cli_args.deckname
 
     else:
         cfg_args["deck"]["name"] = "NewDeck"
