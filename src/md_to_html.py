@@ -49,18 +49,18 @@ def card_content_to_html(content: LearningCard) -> str:
         tags_md["font_color_end"],
     )
     
+    html_content = markdown.markdown(replaced_content)
+    
     latex_content = replace_tag(
-        replaced_content,
+        html_content,
         tags_md["latex_in_md_begin"],
         tags_md["latex_in_md_end"],
         tags_md["latex_anki_begin"],
         tags_md["latex_anki_end"],
     )
     
-    html_content = markdown.markdown(latex_content)
-    
     final_html = replace_tag(
-        html_content,
+        latex_content,
         tags_md["strike"],
         tags_md["strike"],
         tags_html["strike_begin"],

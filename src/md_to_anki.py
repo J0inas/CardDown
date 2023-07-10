@@ -138,10 +138,9 @@ def id_generator():
 
 
 # test
-md_to_anki("/Users/joinas/Documents/Uni/Software-Engineering/Markdown-Anki/Markdown-LearningCards/testDir", "#TestLatex", "TestLatex")
+# md_to_anki("/Users/joinas/Documents/Uni/Software-Engineering/Markdown-Anki/Markdown-LearningCards/testDir", "#PresentTest", "PresentTest")
 
-# md_to_anki("/Users/joinas/Documents/Obsidian/Life","#AlgoGeo","AlgoGeoTest")
-
+md_to_anki("/Users/joinas/Documents/Obsidian/Life","#AlgoGeo","AlgoGeo")
 
 # md_to_anki("testDir", "#Mango", "MangoTest")
 # md_to_anki("./basicCardTest.md", "#Mango", "MangoTest")
