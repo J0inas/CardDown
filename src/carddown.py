@@ -37,7 +37,6 @@ def overwrite_cfg_with_cli_input(cli_args, cfg_args):
         print(cli_args.path)
 
     else:
-        # cfg_args["deck"]["card_path"] = curdir
         cfg_args["deck"]["card_path"] = getcwd()
 
     if cli_args.decktag:
@@ -52,15 +51,9 @@ def overwrite_cfg_with_cli_input(cli_args, cfg_args):
     # TODO implement
     if cli_args.savepath:
         cfg_args["deck"]["save_path"] = cli_args.savepath
-    else:
-        if not cfg_args["deck"]["save_path"]:
-            cfg_args["deck"]["save_path"] = cfg_args["deck"]["card_path"]
 
     if cli_args.deckname:
         cfg_args["deck"]["name"] = cli_args.deckname
-
-    else:
-        cfg_args["deck"]["name"] = "Deck"
 
     if cli_args.starttag:
         cfg_args["deck"]["starttag"] = cli_args.starttag
@@ -69,7 +62,7 @@ def overwrite_cfg_with_cli_input(cli_args, cfg_args):
 def execute(cfg):
 
     md_to_anki(cfg["deck"]["card_path"], cfg["deck"]["start_tag"], cfg["deck"]
-               ["tag"], cfg["deck"]["name"], cfg["parser"]["type"], cfg["media"]["path"])
+               ["tag"], cfg["deck"]["name"], cfg["parser"]["type"], cfg["media"]["path"], cfg["deck"]["save_path"])
 
 
 if __name__ == "__main__":

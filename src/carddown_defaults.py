@@ -1,6 +1,6 @@
 config = """# Test config for CardDown
 [deck]
-name = "ConfigTest"
+name = ""
 tag = ""
 start_tag = ""
 seperator = ""

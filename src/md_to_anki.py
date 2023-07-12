@@ -17,6 +17,8 @@ def md_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str, parser=
     returns: message that anki-deck was created
     """
 
+    # TODO move the argument adjustment to config processor or seperate funtion
+
     # make sure we are working with an absolute path
     path = os.path.abspath(path)
 
@@ -24,12 +26,20 @@ def md_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str, parser=
         if not os.path.isdir(media_path):
             media_path = path
 
+    if not deck_name:
+        if os.path.isfile(path):
+            deck_name = path.removesuffix()
+        if os.path.isdir(path):
+            deck_name = os.path.dirname(path)
+
     if not save_path:
         if not os.path.isdir(path):
             save_path = os.path.dirname(path)
+            save_path = os.path.join(
+                save_path, os.path.basename(path).removesuffix())
         else:
-            save_path = path
-
+            save_path = str(path)
+            save_path = os.path.join(save_path, os.path.basename(path))
     # directory-converter
 
     if os.path.isdir(path) is True:
@@ -62,8 +72,9 @@ def file_to_anki(file_name: str, deck_tag: str, deck_name: str, parser, save_pat
     for card in flashcards:
         note = anki_note(card)
         anki_deck.add_note(note)
+
     card_package = genanki.Package(anki_deck)
-    card_package.write_to_file(save_path + deck_name + ".apkg")
+    card_package.write_to_file(save_path + ".apkg")
     print("Writing file was successful!")
     # TODO move deck generation/writing to file from notelist to separate function
 
@@ -94,7 +105,6 @@ def path_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str,  medi
 
     card_package = genanki.Package(anki_deck)
     card_package.media_files = media_list
-    save_path = os.path.join(save_path, deck_name)
 
     card_package.write_to_file(save_path + ".apkg")
     print("Writing file was successful!")
