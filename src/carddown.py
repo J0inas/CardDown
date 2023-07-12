@@ -60,7 +60,7 @@ def overwrite_cfg_with_cli_input(cli_args, cfg_args):
         cfg_args["deck"]["name"] = cli_args.deckname
 
     else:
-        cfg_args["deck"]["name"] = "NewDeck"
+        cfg_args["deck"]["name"] = "Deck"
 
     if cli_args.starttag:
         cfg_args["deck"]["starttag"] = cli_args.starttag

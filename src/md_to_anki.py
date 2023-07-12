@@ -25,7 +25,10 @@ def md_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str, parser=
             media_path = path
 
     if not save_path:
-        save_path = path
+        if not os.path.isdir(path):
+            save_path = os.path.dirname(path)
+        else:
+            save_path = path
 
     # directory-converter
 
