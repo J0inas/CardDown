@@ -3,18 +3,19 @@ from learningcards import *
 from tags import tags_html
 from file_loader import is_valid_cardfile
 from cardparser import simple_parser
+import tokenize
 
 
-def mdToHtml(card_file: str, html_output: str):
+def md_to_html(text_file: str, html_output = "LearningCards"):
     """
-    converts the given md_file to a simple new html_file with the given output name
-    - card_file is the filename of Markdown-File with cards
-    - html_output is the filename of the HTML page that will be generated
+    converts the given file to a html file with the given output name
+    :text_file: the filename of markdown content
+    :html_output: the filename of the HTML page that will be generated
 
     returns: file with html name
     """
     # load the md file
-    md_str = is_valid_cardfile(card_file)
+    md_str = is_valid_cardfile(text_file)
     # parse the md text into the cards
     md_cards = simple_parser.get_cards_from_file(md_str)
     # parse the md_cards to html-text
@@ -53,11 +54,20 @@ def card_content_to_html(content: LearningCard) -> str:
     
     latex_content = replace_tag(
         html_content,
+        tags_md["latex_block"],
+        tags_md["latex_block"],
+        tags_md["l_block_begin"],
+        tags_md["latex_anki_end"],
+    )
+    
+    latex_content = replace_tag(
+        latex_content,
         tags_md["latex_in_md_begin"],
         tags_md["latex_in_md_end"],
         tags_md["latex_anki_begin"],
         tags_md["latex_anki_end"],
     )
+    
     
     final_html = replace_tag(
         latex_content,
@@ -65,6 +75,14 @@ def card_content_to_html(content: LearningCard) -> str:
         tags_md["strike"],
         tags_html["strike_begin"],
         tags_html["strike_end"],
+    )
+    
+    final_html = replace_tag(
+        final_html,
+        tags_md["code_block_md"],
+        tags_md["code_block_md"],
+        tags_md["code_html_begin"],
+        tags_md["code_html_end"],
     )
     
     
@@ -120,11 +138,12 @@ def replace_tag(
        
     return string
 
+
 """
 replace_tag - Test
 ---
 
-"""
+
 test_string = "Das ist ein [[Test]] für [[Latex]]: WTF passiert hier $frac12$ nennt man auch Einhalb. $\pi$ ist kleiner als drei Äpfel!"
 # test_string = "Das ist ein [[Test]] für [[Latex]]"
 # test_string = "$1618$ bis $1648$"
@@ -145,3 +164,4 @@ replaced_content = replace_tag (
     )
 
 print (replaced_content)
+"""
