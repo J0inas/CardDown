@@ -17,7 +17,7 @@ def get_valid_cardfiles_from_dir(path: str, start_tag="", deck_tag="") -> list:
         if filename.endswith(".md"):
             filename = os.path.join(path, filename)
             print(filename)
-            if is_valid_cardfile(filename, [start_tag, deck_tag]):
+            if is_valid_cardfile(filename, start_tag, deck_tag):
                 card_filenames.append(filename)
 
         else:
@@ -44,7 +44,7 @@ def is_valid_cardfile(file_name: str, start_tag="", deck_tag="") -> bool:
 
     f.seek(0)
 
-    check_tags = contains_cardTags(f, deck_tag)
+    check_tags = contains_cardTags(f, start_tag, deck_tag)
 
     f.close()
     return check_tags
@@ -60,11 +60,13 @@ def contains_cardTags(file: TextIO, start_tag: str, deck_tag: str) -> bool:
     file.seek(0)
 
     for line in file:
-        if start_tag in line:
+        # remove trailing whitespace (especially newlines)
+        line = line.rstrip()
+        if line == start_tag:
             foundCardTag = True
             if foundDeckTag:
                 break
-        if deck_tag in line:
+        if line == deck_tag:
             foundDeckTag = True
             if foundCardTag:
                 break

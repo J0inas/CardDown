@@ -56,7 +56,7 @@ def overwrite_cfg_with_cli_input(cli_args, cfg_args):
         cfg_args["deck"]["name"] = cli_args.deckname
 
     if cli_args.starttag:
-        cfg_args["deck"]["starttag"] = cli_args.starttag
+        cfg_args["deck"]["start_tag"] = cli_args.starttag
 
 
 def execute(cfg):
