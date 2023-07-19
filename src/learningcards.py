@@ -1,5 +1,4 @@
-from file_loader import start_tag
-from tags import tags_md, card_control
+from tags import tags_md
 
 
 class LearningCard:

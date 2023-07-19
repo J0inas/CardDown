@@ -7,7 +7,7 @@ import genanki
 import random
 
 
-def md_to_anki(input: str, deck_tag: str, deck_name: str):
+def md_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str, parser=simple_parser, media_path=None, save_path=None):
     """
     Creates an anki-deck from the given md-file.
     :input: single file or path
@@ -16,51 +16,84 @@ def md_to_anki(input: str, deck_tag: str, deck_name: str):
 
     returns: message that anki-deck was created
     """
+
+    # TODO move the argument adjustment to config processor or seperate funtion
+
+    # make sure we are working with an absolute path
+    path = os.path.abspath(path)
+
+    if not media_path:
+        if not os.path.isdir(media_path):
+            media_path = path
+
+    if not deck_name:
+        if os.path.isfile(path):
+            deck_name = path.removesuffix(".md")
+        if os.path.isdir(path):
+            deck_name = os.path.dirname(path)
+
+    if not save_path:
+        if not os.path.isdir(path):
+            save_path = os.path.dirname(path)
+            save_path = os.path.join(
+                save_path, os.path.basename(path).removesuffix(".md"))
+        else:
+            save_path = str(path)
+            save_path = os.path.join(save_path, os.path.basename(path))
     # directory-converter
-    if os.path.isdir(input) is True:
-        path_to_anki(input, deck_tag, deck_name)
+
+    if os.path.isdir(path) is True:
+        path_to_anki(path, start_tag, deck_tag,
+                     deck_name, media_path, parser, save_path)
         return
+
     # single-file-converter
-    file_to_anki(input, deck_tag, deck_name)
+    file_to_anki(path, deck_tag, deck_name, parser, save_path)
     return
 
 
-def file_to_anki(file_name: str, deck_tag: str, deck_name: str):
+def file_to_anki(file_name: str, deck_tag: str, deck_name: str, parser, save_path: str):
     """
     :file_name: str of file that should be converted
     :deck_tag: name of the tag that is given after the start_tag in the file
     :deck_name: name of the Anki-Deck
     """
     # check file for valid card file
-    card_filename = is_valid_cardfile(file_name, deck_tag)
 
-    # empty/unvalid file has no need to be converted
-    if card_filename is None:
+    if not is_valid_cardfile(file_name, deck_tag):
+        # empty/unvalid file has no need to be converted
         return
-    flashcards = simple_parser.get_cards_from_file(card_filename)
+    else:
+        card_filename = os.path.abspath(file_name)
+
+    flashcards = parser.get_cards_from_file(card_filename)
     # generating the anki file
     anki_deck = genanki.Deck(id_generator(), deck_name)
     for card in flashcards:
         note = anki_note(card)
         anki_deck.add_note(note)
+
     card_package = genanki.Package(anki_deck)
-    card_package.write_to_file(deck_name + ".apkg")
+    card_package.write_to_file(save_path + ".apkg")
     print("Writing file was successful!")
+    # TODO move deck generation/writing to file from notelist to separate function
 
 
-def path_to_anki(path: str, deck_tag: str, deck_name: str):
+def path_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str,  media_path, parser, save_path: str):
     """
     :path: str of the path where the md-files are located
     :deck_tag: name of the tag that is given after the start_tag in the file
     :deck_name: name of the Anki-Deck
     """
 
-    filenames = get_valid_cardfiles_from_dir(path, deck_tag)
+    filenames = get_valid_cardfiles_from_dir(path, start_tag, deck_tag)
 
     learningcards = []
-    media_list = get_media_from_path(path)
+
+    media_list = get_media_from_path(media_path)
+
     for card in filenames:
-        learningcards.append(simple_parser.get_cards_from_file(card))
+        learningcards.append(parser.get_cards_from_file(card))
         print(learningcards)
 
     anki_deck = genanki.Deck(id_generator(), deck_name)
@@ -72,7 +105,8 @@ def path_to_anki(path: str, deck_tag: str, deck_name: str):
 
     card_package = genanki.Package(anki_deck)
     card_package.media_files = media_list
-    card_package.write_to_file(deck_name + ".apkg")
+
+    card_package.write_to_file(save_path + ".apkg")
     print("Writing file was successful!")
 
 
@@ -135,12 +169,5 @@ def id_generator():
     returns: random number that can be used as an id
     """
     return random.randrange(1 << 30, 1 << 31)
-
-
-# test
-md_to_anki("/Users/joinas/Documents/Uni/Software-Engineering/Markdown-Anki/Markdown-LearningCards/testDir", "#Debugging", "Debugging")
-
-# md_to_anki("/Users/joinas/Documents/Obsidian/Life","#AlgoGeo","AlgoGeo")
-
-# md_to_anki("testDir", "#Mango", "MangoTest")
-# md_to_anki("./basicCardTest.md", "#Mango", "MangoTest")
+  
+  

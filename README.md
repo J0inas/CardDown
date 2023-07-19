@@ -27,6 +27,16 @@ Test the product, look for bugs and ultimately make slight improvements.
 Adding a GUI for quicker usage and broader appeal.
 Updating Read-Me with images.
 
- ### What is the motivation behind this project?
+### What is the motivation behind this project?
+  
  We are computer science students who want to use this tool to create flashcards in anki through our notes from Obsidian and other Markdown-Editors without the extra effort of typing out every flashcard. 
  Instead we wrote a programm that create the flashcards for us from our notes.
+
+### Usage Guide
+
+Coming Soon
+
+#### Config Usage
+
+See [here](./current_config_support.md)
+

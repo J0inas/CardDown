@@ -1,6 +1,6 @@
 import markdown
 from learningcards import *
-from tags import tags_html
+from tags import tags_html, tags_md
 from file_loader import is_valid_cardfile
 from cardparser import simple_parser
 import tokenize
@@ -41,17 +41,18 @@ def card_content_to_html(content: LearningCard) -> str:
         tags_md["img_begin"],
         tags_md["img_end"],
     )
-    
-    replaced_content = replace_tag (
+
+    replaced_content = replace_tag(
         img_content,
         tags_md["link_file_begin"],
         tags_md["link_file_end"],
         tags_md["font_color_begin"],
         tags_md["font_color_end"],
     )
+
     
     html_content = markdown.markdown(replaced_content)
-    
+
     latex_content = replace_tag(
         html_content,
         tags_md["latex_block"],
@@ -67,8 +68,7 @@ def card_content_to_html(content: LearningCard) -> str:
         tags_md["latex_anki_begin"],
         tags_md["latex_anki_end"],
     )
-    
-    
+
     final_html = replace_tag(
         latex_content,
         tags_md["strike"],
@@ -76,7 +76,7 @@ def card_content_to_html(content: LearningCard) -> str:
         tags_html["strike_begin"],
         tags_html["strike_end"],
     )
-    
+
     final_html = replace_tag(
         final_html,
         tags_md["code_block_md"],
@@ -85,7 +85,7 @@ def card_content_to_html(content: LearningCard) -> str:
         tags_md["code_html_end"],
     )
     
-    
+
     return final_html
 
 
@@ -126,22 +126,25 @@ def replace_tag(
     i = 1
     while find != -1:
         if i % 2 == 0:
-            string = string[:find] + tag_replacement_end + string[find + len(md_tag_end):]
+
+            string = string[:find] + tag_replacement_end + \
+                string[find + len(md_tag_end):]
             print(string)
             find = string.find(md_tag_begin)
             i = 1
         else:
-            string = string[:find] + tag_replacement_begin + string[find + len(md_tag_end):]
-            print (string)
+            string = string[:find] + tag_replacement_begin + \
+                string[find + len(md_tag_end):]
+            print(string)
             i += 1
             find = string.find(md_tag_end)
-       
+
     return string
 
 
 """
 replace_tag - Test
----
+
 
 
 test_string = "Das ist ein [[Test]] für [[Latex]]: WTF passiert hier $frac12$ nennt man auch Einhalb. $\pi$ ist kleiner als drei Äpfel!"
@@ -153,15 +156,15 @@ test_tag = replace_tag(
     tags_md["latex_in_md_end"],
     tags_md["latex_anki_begin"],
     tags_md["latex_anki_end"],
-    )
+)
 
-replaced_content = replace_tag (
-        test_tag,
-        tags_md["link_file_begin"],
-        tags_md["link_file_end"],
-        tags_md["font_color_begin"],
-        tags_md["font_color_end"],
-    )
+replaced_content = replace_tag(
+    test_tag,
+    tags_md["link_file_begin"],
+    tags_md["link_file_end"],
+    tags_md["font_color_begin"],
+    tags_md["font_color_end"],
+)
 
-print (replaced_content)
+print(replaced_content)
 """

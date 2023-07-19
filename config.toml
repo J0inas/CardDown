@@ -1,0 +1,8 @@
+# Dufte configdatei
+
+[parser]
+type="simple"
+
+[deck]
+"start_tag" = "<!---->"
+"tag" = "#Mango"

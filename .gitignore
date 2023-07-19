@@ -1,3 +1,7 @@
+#Anki
+*.apkg
+testDir/*.apkg
+
 #Mac	
 **/.DS_Store
 

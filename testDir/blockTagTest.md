@@ -8,37 +8,40 @@ test
 
 ----
 
-
-testerenenenene
-
-enenen
-
-enn
-
-{card}
+This should not be inside of a card.
 
 
-hallo
-
-----
-
-hi
-
-----
+haei
+ah
 
 {card}
 
-wrong usage
+AAAA
+
+----
+
+BBBB
+
+----
+
+{card}
+
+!wrong usage
 
 
 {card}
 
-Mango
+**Mango**
 
 ----
 
-test
+*test*
+
+----
+
+Hallo, ich bin freeei
 
 ----
 
 
+Test
