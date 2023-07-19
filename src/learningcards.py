@@ -1,3 +1,6 @@
+from tags import tags_md
+
+
 class LearningCard:
     def __init__(self):
         self.front = None

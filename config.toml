@@ -4,5 +4,5 @@
 type="simple"
 
 [deck]
-"start_tag" = "<!--->"
-"deck_tag" = "#Mango"
+"start_tag" = "<!---->"
+"tag" = "#Mango"

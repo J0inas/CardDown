@@ -16,19 +16,21 @@ def get_cards_from_file(file_name: str) -> list:
 
     # traversing through file, line by line
     for line in file:
+        # remove trailing whitespace, such as \n
+        # caused some problems with detecting question tags
+        line = line.rstrip()
+
         # empty line skipped
         if line == "":
             continue
 
         if tags_md["seperator"] in line:
             card_control["simple"] = False
-            card_control["question"] = False
 
         # start tag of the card
         if line.startswith(tags_md["card_begin"]) or line.startswith(tags_md["card_section"]):
 
             card_control["simple"] = False
-            card_control["question"] = False
 
             # new questioncard
             # checking last letters for the given question_card-tag
@@ -39,15 +41,6 @@ def get_cards_from_file(file_name: str) -> list:
                 new_questioncard = QuestionCard()
                 learningcard_list.append(new_questioncard)
 
-            # new simplecard
-            else:
-                # for card content
-                card_control["simple"] = True
-                new_simplecard = SimpleCard()
-                new_simplecard.set_front_content(line)
-                learningcard_list.append(new_simplecard)
-
-        elif line.startswith(tags_md["card_section"]):
             # content of questioncard
             if card_control["question"] is True:
                 # if section-tag is detected
@@ -65,6 +58,15 @@ def get_cards_from_file(file_name: str) -> list:
                     elif line.endswith(tags_md["back"]):
 
                         card_control["back"] = True
+
+            # new simplecard
+            else:
+                # for card content
+                card_control["simple"] = True
+                card_control["question"] = False
+                new_simplecard = SimpleCard()
+                new_simplecard.set_front_content(line)
+                learningcard_list.append(new_simplecard)
 
         elif card_control["back"] or card_control["simple"]:
             learningcard_list[-1].set_back_content(line)
