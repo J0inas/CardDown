@@ -33,24 +33,44 @@ def card_content_to_html(content: LearningCard) -> str:
 
     returns: html in String format
     """
-    replaced_content_img = replace_tag(
+    img_content = replace_tag(
         content,
         tags_md["obsidian_img_begin"],
         tags_md["obsidian_img_end"],
         tags_md["img_begin"],
         tags_md["img_end"],
     )
+<<<<<<< HEAD
 
     replaced_content = replace_tag(
         replaced_content_img,
+=======
+    
+    replaced_content = replace_tag (
+        img_content,
+>>>>>>> main
         tags_md["link_file_begin"],
         tags_md["link_file_end"],
         tags_md["font_color_begin"],
         tags_md["font_color_end"],
     )
+<<<<<<< HEAD
 
     html_content = markdown.markdown(replaced_content)
 
+=======
+    
+    latex_content = replace_tag(
+        replaced_content,
+        tags_md["latex_in_md_begin"],
+        tags_md["latex_in_md_end"],
+        tags_md["latex_anki_begin"],
+        tags_md["latex_anki_end"],
+    )
+    
+    html_content = markdown.markdown(latex_content)
+    
+>>>>>>> main
     final_html = replace_tag(
         html_content,
         tags_md["strike"],
@@ -58,6 +78,8 @@ def card_content_to_html(content: LearningCard) -> str:
         tags_html["strike_begin"],
         tags_html["strike_end"],
     )
+    
+    
     return final_html
 
 
@@ -89,29 +111,53 @@ def parse_html_cards(learningcards: list) -> str:
 def replace_tag(
     string: str, md_tag_begin: str, md_tag_end: str, tag_replacement_begin: str, tag_replacement_end: str
 ) -> str:
-    # prints -1 if tag not found
+    # -1 if tag not found
     find = string.find(md_tag_begin)
     i = 1
     while find != -1:
-        replace_tag = tag_replacement_begin
-        # begin or end tag?
         if i % 2 == 0:
+<<<<<<< HEAD
             replace_tag = tag_replacement_end
             i = 0
         if find != -1:
             string = string[:find] + replace_tag + \
                 " " + string[find + len(md_tag_end):]
+=======
+            string = string[:find] + tag_replacement_end + string[find + len(md_tag_end):]
+            print(string)
+            find = string.find(md_tag_begin)
+            i = 1
+        else:
+            string = string[:find] + tag_replacement_begin + string[find + len(md_tag_end):]
+            print (string)
+>>>>>>> main
             i += 1
-            # breakpoint()
-        find = string.find(md_tag_end)
+            find = string.find(md_tag_end)
+       
     return string
 
+"""
+replace_tag - Test
+---
 
-# Testing
-# MD-Parser
-# cards_md = load_card_file("cards.md")
-# learningcards = parse_md_cards(cards_md)
-# parse_html_cards(learningcards)
-# LearningCard.print_to_console(learningcards)
-# HTML converter
-# mdToHtml("test_card.md", "example.html")
+"""
+test_string = "Das ist ein [[Test]] für [[Latex]]: WTF passiert hier $frac12$ nennt man auch Einhalb. $\pi$ ist kleiner als drei Äpfel!"
+# test_string = "Das ist ein [[Test]] für [[Latex]]"
+# test_string = "$1618$ bis $1648$"
+test_tag = replace_tag(
+    test_string,
+    tags_md["latex_in_md_begin"],
+    tags_md["latex_in_md_end"],
+    tags_md["latex_anki_begin"],
+    tags_md["latex_anki_end"],
+    )
+
+replaced_content = replace_tag (
+        test_tag,
+        tags_md["link_file_begin"],
+        tags_md["link_file_end"],
+        tags_md["font_color_begin"],
+        tags_md["font_color_end"],
+    )
+
+print (replaced_content)
