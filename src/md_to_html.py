@@ -144,7 +144,7 @@ def replace_tag(
 
 """
 replace_tag - Test
----
+
 
 
 test_string = "Das ist ein [[Test]] für [[Latex]]: WTF passiert hier $frac12$ nennt man auch Einhalb. $\pi$ ist kleiner als drei Äpfel!"
@@ -167,3 +167,4 @@ replaced_content = replace_tag(
 )
 
 print(replaced_content)
+"""
