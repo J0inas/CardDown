@@ -169,16 +169,3 @@ def id_generator():
     returns: random number that can be used as an id
     """
     return random.randrange(1 << 30, 1 << 31)
-<<<<<<< HEAD
-=======
-
-
-# test
-md_to_anki("/Users/joinas/Documents/Uni/Software-Engineering/Markdown-Anki/Markdown-LearningCards/testDir", "#TestLatex", "TestLatex")
-
-# md_to_anki("/Users/joinas/Documents/Obsidian/Life","#AlgoGeo","AlgoGeoTest")
-
-
-# md_to_anki("testDir", "#Mango", "MangoTest")
-# md_to_anki("./basicCardTest.md", "#Mango", "MangoTest")
->>>>>>> main
