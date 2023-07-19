@@ -1,4 +1,4 @@
-# Markdown LearningCards
+# CardDown
  A tool to create Anki-LearningCards from Markdown-Files.
  Provide a single file or path into the program and get a stack of Anki-Cards in return!
  Very useful if you want to get some flashcards out of your [Obsidian](https://obsidian.md/) notes or other note taking apps based on markdown.

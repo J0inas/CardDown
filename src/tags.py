@@ -32,7 +32,12 @@ tags_md = {
     "latex_in_md_begin" : "$",
     "latex_in_md_end" : "$",
     "latex_anki_begin" :" <anki-mathjax>",
-    "latex_anki_end" : "</anki-mathjax> "
+    "latex_block" : "$$",
+    "l_block_begin" : ' <anki-mathjax block="true">',
+    "latex_anki_end" : "</anki-mathjax> ",
+    "code_block_md" : "```",
+    "code_html_begin" : " <pre> <code>",
+    "code_html_end" : "</code> </pre> "
 }
 
 # controls the file traversal

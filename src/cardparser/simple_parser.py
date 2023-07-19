@@ -16,12 +16,12 @@ def get_cards_from_file(file_name: str) -> list:
 
     # traversing through file, line by line
     for line in file:
-        # remove trailing whitespace, such as \n
-        # caused some problems with detecting question tags
-        line = line.rstrip()
 
-        # empty line skipped
+      # empty line skipped
         if line == "":
+          continue
+        if line == start_tag:
+
             continue
 
         if tags_md["seperator"] in line:
@@ -35,7 +35,7 @@ def get_cards_from_file(file_name: str) -> list:
             # new questioncard
             # checking last letters for the given question_card-tag
 
-            if line.endswith(tags_md["question_card"]):
+            if line.rstrip().endswith(tags_md["question_card"]):
                 # for card content
                 card_control["question"] = True
                 new_questioncard = QuestionCard()
@@ -48,14 +48,14 @@ def get_cards_from_file(file_name: str) -> list:
                     card_control["back"] = False
 
                     # if front-tag detected
-                    if line.endswith(tags_md["front"]):
+                    if line.rstrip().endswith(tags_md["front"]):
                         # function slices the string so that the front tag is removed
                         learningcard_list[-1].set_front_content(
                             line
                         )
 
                     # back
-                    elif line.endswith(tags_md["back"]):
+                    elif line.rstrip().endswith(tags_md["back"]):
 
                         card_control["back"] = True
 
