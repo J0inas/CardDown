@@ -93,7 +93,7 @@ def path_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str,  medi
     media_list = get_media_from_path(media_path)
 
     for card in filenames:
-        learningcards.append(parser.get_cards_from_file(card))
+        learningcards.append(parser.get_cards_from_file(card, start_tag))
         print(learningcards)
 
     anki_deck = genanki.Deck(id_generator(), deck_name)
@@ -171,3 +171,4 @@ def id_generator():
     """
     return random.randrange(1 << 30, 1 << 31)
 
+md_to_anki("/Users/joinas/Documents/Obsidian/Life", "<!---->", "#InteraktiveSysteme","Interaktive Systeme",media_path="/Users/joinas/Documents/Obsidian/Life") 

@@ -2,7 +2,7 @@ from tags import tags_md, card_control
 from learningcards import SimpleCard, QuestionCard
 
 
-def get_cards_from_file(file_name: str) -> list:
+def get_cards_from_file(file_name: str, start_tag: str) -> list:
     """
     Parser for the simple Markdown-Heading Card Syntax
     returns: List of different LearningCards
