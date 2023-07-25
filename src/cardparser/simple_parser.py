@@ -70,6 +70,9 @@ def get_cards_from_file(file_name: str) -> list:
 
         elif card_control["back"] or card_control["simple"]:
             learningcard_list[-1].set_back_content(line)
-
+        
+        else:
+            continue
+        
     file.close()
     return learningcard_list

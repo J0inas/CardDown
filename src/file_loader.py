@@ -16,8 +16,8 @@ def get_valid_cardfiles_from_dir(path: str, start_tag="", deck_tag="") -> list:
     for filename in files:
         if filename.endswith(".md"):
             filename = os.path.join(path, filename)
-            print(filename)
             if is_valid_cardfile(filename, start_tag, deck_tag):
+                print(filename)
                 card_filenames.append(filename)
 
         else:

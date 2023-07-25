@@ -117,7 +117,7 @@ def anki_note(card: LearningCard):
     returns: single anki-flashcard
     """
     print(card.get_front_content())
-    model = genanki.BASIC_MODEL
+    model = genanki.BASIC_AND_REVERSED_CARD_MODEL
     front = card_content_to_html(card.get_front_content())
     back = card_content_to_html(card.get_back_content())
     fields = [front, back]
@@ -125,6 +125,7 @@ def anki_note(card: LearningCard):
     note = genanki.Note(model, fields)
 
     return note
+
 
 
 def anki_note_from_list(card_list: list):
@@ -169,5 +170,4 @@ def id_generator():
     returns: random number that can be used as an id
     """
     return random.randrange(1 << 30, 1 << 31)
-  
-  
+

@@ -3,7 +3,6 @@ from learningcards import *
 from tags import tags_html, tags_md
 from file_loader import is_valid_cardfile
 from cardparser import simple_parser
-import tokenize
 
 
 def md_to_html(text_file: str, html_output = "LearningCards"):
@@ -26,7 +25,6 @@ def md_to_html(text_file: str, html_output = "LearningCards"):
     html_file.close()
 
     return html_file
-
 
 def card_content_to_html(content: LearningCard) -> str:
     """
