@@ -75,6 +75,7 @@ def card_content_to_html(content: LearningCard) -> str:
         tags_html["strike_end"],
     )
 
+    """
     final_html = replace_tag(
         final_html,
         tags_md["code_block_md"],
@@ -82,7 +83,7 @@ def card_content_to_html(content: LearningCard) -> str:
         tags_md["code_html_begin"],
         tags_md["code_html_end"],
     )
-    
+    """
 
     return final_html
 

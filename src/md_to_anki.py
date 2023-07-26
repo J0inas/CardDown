@@ -106,7 +106,7 @@ def path_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str,  medi
     card_package = genanki.Package(anki_deck)
     card_package.media_files = media_list
 
-    card_package.write_to_file(save_path + ".apkg")
+    card_package.write_to_file(deck_name + ".apkg")
     print("Writing file was successful!")
 
 
@@ -171,4 +171,4 @@ def id_generator():
     """
     return random.randrange(1 << 30, 1 << 31)
 
-md_to_anki("/Users/joinas/Documents/Obsidian/Life", "<!---->", "#InteraktiveSysteme","Interaktive Systeme",media_path="/Users/joinas/Documents/Obsidian/Life") 
+md_to_anki("/Users/joinas/Documents/Obsidian/Life", "<!---->", "#InteraktiveSysteme",deck_name="Interaktive Systeme",media_path="/Users/joinas/Documents/Obsidian/Life", save_path="/Users/joinas/Documents/Obsidian/Life") 
