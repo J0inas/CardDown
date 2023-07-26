@@ -23,7 +23,9 @@ def md_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str, parser=
     path = os.path.abspath(path)
 
     if not media_path:
-        if not os.path.isdir(media_path):
+        if media_path is None:
+            media_path = path
+        elif not os.path.isdir(media_path):
             media_path = path
 
     if not deck_name:
@@ -171,4 +173,4 @@ def id_generator():
     """
     return random.randrange(1 << 30, 1 << 31)
 
-md_to_anki("/Users/joinas/Documents/Obsidian/Life", "<!---->", "#InteraktiveSysteme",deck_name="Interaktive Systeme",media_path="/Users/joinas/Documents/Obsidian/Life", save_path="/Users/joinas/Documents/Obsidian/Life") 
+md_to_anki("/Users/joinas/Documents/Obsidian/Life","<!---->","#InteraktiveSysteme","Interaktive Systeme")
