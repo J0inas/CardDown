@@ -41,7 +41,6 @@ def md_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str, parser=
                 save_path, os.path.basename(path).removesuffix(".md"))
         else:
             save_path = str(path)
-            save_path = os.path.join(save_path, os.path.basename(path))
     # directory-converter
 
     if os.path.isdir(path) is True:
@@ -107,10 +106,10 @@ def path_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str,  medi
 
     card_package = genanki.Package(anki_deck)
     card_package.media_files = media_list
-
+    os.chdir(save_path)
     card_package.write_to_file(deck_name + ".apkg")
     print("Writing file was successful!")
-
+    
 
 def anki_note(card: LearningCard):
     """
@@ -153,7 +152,8 @@ def get_media_from_path(path: str) -> list:
     Returns every media file from the path as a list.
     Media is a png, jpeg, mp3, gif or mp4.
     """
-    files = os.listdir()
+    
+    files = os.listdir(path)
     media_files = []
     supportedMediaTypes = [".png", "mp3", ".gif", ".mp4", ".jpeg"]
     for filename in files:
