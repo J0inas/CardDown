@@ -32,7 +32,7 @@ def md_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str, parser=
         if os.path.isfile(path):
             deck_name = path.removesuffix(".md")
         if os.path.isdir(path):
-            deck_name = os.path.dirname(path)
+            deck_name = os.path.basename(path)
 
     if not save_path:
         if not os.path.isdir(path):
