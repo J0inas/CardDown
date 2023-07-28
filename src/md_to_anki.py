@@ -11,7 +11,7 @@ def md_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str, parser=
     """
     Creates an anki-deck from the given md-file.
     :input: single file or path
-    :deck_name: name of the tag that is given after the start_tag in the file 
+    :deck_name: name of the tag that is given after the start_tag in the file
     - also the name of the Anki-Deck
 
     returns: message that anki-deck was created
@@ -30,17 +30,22 @@ def md_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str, parser=
 
     if not deck_name:
         if os.path.isfile(path):
-            deck_name = path.removesuffix(".md")
+            deck_name = os.path.basename(path.removesuffix(".md"))
         if os.path.isdir(path):
             deck_name = os.path.basename(path)
 
     if not save_path:
         if not os.path.isdir(path):
             save_path = os.path.dirname(path)
-            save_path = os.path.join(
-                save_path, os.path.basename(path).removesuffix(".md"))
+
+            save_name = deck_name
+
         else:
             save_path = str(path)
+
+        save_path = os.path.join(
+            save_path, deck_name)
+
     # directory-converter
 
     if os.path.isdir(path) is True:
@@ -106,10 +111,9 @@ def path_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str,  medi
 
     card_package = genanki.Package(anki_deck)
     card_package.media_files = media_list
-    os.chdir(save_path)
-    card_package.write_to_file(deck_name + ".apkg")
+    card_package.write_to_file(save_path + ".apkg")
     print("Writing file was successful!")
-    
+
 
 def anki_note(card: LearningCard):
     """
@@ -151,7 +155,7 @@ def get_media_from_path(path: str) -> list:
     Returns every media file from the path as a list.
     Media is a png, jpeg, mp3, gif or mp4.
     """
-    
+
     files = os.listdir(path)
     media_files = []
     supportedMediaTypes = [".png", "mp3", ".gif", ".mp4", ".jpeg"]
