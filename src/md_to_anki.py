@@ -109,7 +109,7 @@ def path_to_anki(path: str, start_tag: str, deck_tag: str, deck_name: str,  medi
     os.chdir(save_path)
     card_package.write_to_file(deck_name + ".apkg")
     print("Writing file was successful!")
-    
+
 
 def anki_note(card: LearningCard):
     """
@@ -118,7 +118,7 @@ def anki_note(card: LearningCard):
     returns: single anki-flashcard
     """
     print(card.get_front_content())
-    model = genanki.BASIC_AND_REVERSED_CARD_MODEL
+    model = genanki.BASIC_MODEL
     front = card_content_to_html(card.get_front_content())
     back = card_content_to_html(card.get_back_content())
     fields = [front, back]
@@ -151,7 +151,7 @@ def get_media_from_path(path: str) -> list:
     Returns every media file from the path as a list.
     Media is a png, jpeg, mp3, gif or mp4.
     """
-    
+
     files = os.listdir(path)
     media_files = []
     supportedMediaTypes = [".png", "mp3", ".gif", ".mp4", ".jpeg"]
