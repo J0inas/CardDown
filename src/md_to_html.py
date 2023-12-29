@@ -5,7 +5,7 @@ from file_loader import is_valid_cardfile
 from cardparser import simple_parser
 
 
-def md_to_html(text_file: str, html_output = "LearningCards"):
+def md_to_html(text_file: str, html_output="LearningCards"):
     """
     converts the given file to a html file with the given output name
     :text_file: the filename of markdown content
@@ -25,6 +25,7 @@ def md_to_html(text_file: str, html_output = "LearningCards"):
     html_file.close()
 
     return html_file
+
 
 def card_content_to_html(content: LearningCard) -> str:
     """
@@ -48,7 +49,6 @@ def card_content_to_html(content: LearningCard) -> str:
         tags_md["font_color_end"],
     )
 
-    
     html_content = markdown.markdown(replaced_content)
 
     latex_content = replace_tag(
@@ -58,7 +58,7 @@ def card_content_to_html(content: LearningCard) -> str:
         tags_md["l_block_begin"],
         tags_md["latex_anki_end"],
     )
-    
+
     latex_content = replace_tag(
         latex_content,
         tags_md["latex_in_md_begin"],
@@ -121,7 +121,7 @@ def replace_tag(
         find = string.find(md_tag_begin)
     except AttributeError:
         return " "
-    
+
     i = 1
     while find != -1:
         if i % 2 == 0:

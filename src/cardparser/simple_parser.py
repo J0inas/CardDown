@@ -17,7 +17,7 @@ def get_cards_from_file(file_name: str, start_tag="") -> list:
     # traversing through file, line by line
     for line in file:
 
-      # empty line skipped
+        # empty line skipped
         if line == "":
             continue
         if line == start_tag:
