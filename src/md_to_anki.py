@@ -122,7 +122,7 @@ def anki_note(card: LearningCard):
     returns: single anki-flashcard
     """
     print(card.get_front_content())
-    model = genanki.BASIC_AND_REVERSED_CARD_MODEL
+    model = genanki.BASIC_MODEL
     front = card_content_to_html(card.get_front_content())
     back = card_content_to_html(card.get_back_content())
     fields = [front, back]
